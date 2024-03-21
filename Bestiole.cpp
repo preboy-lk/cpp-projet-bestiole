@@ -6,7 +6,7 @@
 #include "Milieu.h"
 
 
-const double      Bestiole::AFF_SIZE = 10.;
+const double      Bestiole::AFF_SIZE = 20.;
 const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 
@@ -181,8 +181,9 @@ bool Bestiole::collision( Bestiole & b )
          orientation = M_PI+orientation;
          b.setOrientation(M_PI+b.orientation);
       }
+      return true;
    }
-   return true;
+   return false;
 }
 
 void Bestiole::changeBehavior(Behavior* behavior)

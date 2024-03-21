@@ -13,7 +13,7 @@ int main()
    Aquarium       ecosysteme( 640, 480, 50 );
    Creator* creator = new Creator;
 
-   for ( int i = 1; i <= 20; i++ ){
+   for ( int i = 1; i <= 15; i++ ){
       ecosysteme.getMilieu().addMember( (creator->createBestiole()) );
    }
    ecosysteme.run();

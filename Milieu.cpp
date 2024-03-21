@@ -29,7 +29,7 @@ Milieu::~Milieu( void )
 void Milieu::step( void )
 {
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-
+ 
    for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       (*it)->action( *this );
@@ -37,20 +37,34 @@ void Milieu::step( void )
 
       //changeBehavior
       (*it)->changeBehavior((*it)->getBehavior());
-      
+    
       //Collison
       for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
       {
-         if( ito != it )
+         if( ito != it ){
             (*ito)->collision((**it)) ;
+            int prob = std::rand() % 100;
+            if(prob <= 3 && (*ito)->collision((**it))){
+               (*it)->setAge(1);
+               cout<<"Mort par collision !" <<endl;
+            }
+         }
       }
 
+      if(listeBestioles.size() > 1){
+         
       //Mort naturel
-      if((*it)->getAge() >= 1){ //Tant qu'il lui reste plus d'un an à vivre, l'esperance de vie diminue
-         (*it)->esperanceVie();
-         if((*it)->getAge() == 0) 
-            delete (*it); // Bestiole meurt
+         if((*it)->getAge() >= 1){ //Tant qu'il lui reste plus d'un an à vivre, l'esperance de vie diminue
+            (*it)->esperanceVie();
+            if((*it)->getAge() == 0) {
+               delete (*it); // Bestiole meurt
+               listeBestioles.erase(it);
+               cout<<"Il reste " <<listeBestioles.size() <<" Bestioles dans l'aquarium\n\n" <<endl;
+               break;
+            }
+         }      
       }
+
    } // for
 
 
