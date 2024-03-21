@@ -173,3 +173,8 @@ std::string Bestiole::afficher() const {
     res += "vitesse : " + std::to_string(vitesse);
     return res;
 }
+
+const int Bestiole::getIdentite()
+{
+   return identite;
+}

@@ -7,12 +7,7 @@
 
 class Director {
 public:
-    Director(double probAccessoire, double probCapteur);
-    void construireBestiole(Bestiole* bestiole) const;
-
-private:
-    double probAccessoire;
-    double probCapteur;
+    void construireBestiole(Bestiole* bestiole, double proba) const;
 };
 
 #endif // DIRECTOR_H

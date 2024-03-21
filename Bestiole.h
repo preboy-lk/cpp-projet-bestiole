@@ -55,6 +55,7 @@ public :                                           // Forme canonique :
    void augmenterVitesse(double facteur);
    std::string afficher() const;
    const std::vector<Accessoires*>& getAccessoires() const;
+   const int getIdentite();
 };
 
 

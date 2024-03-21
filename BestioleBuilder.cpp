@@ -31,8 +31,9 @@ void BestioleBuilder::construireCapteurs(Bestiole* bestiole) const {
 
 void BestioleBuilder::ajusterVitesse(Bestiole* bestiole) const {
     for (const auto& accessoire : bestiole->getAccessoires()) {
-        if (accessoire->getNom() == "Nageoires") {
-            bestiole->augmenterVitesse(1.5);
+        if (accessoire->getNom() == "Nageoire") {
+            //bestiole->augmenterVitesse(1.5);
+            std::cout << "const Bestiole (" << bestiole->getIdentite() << ") have Nageoire" << endl;
             break;
         }
     }

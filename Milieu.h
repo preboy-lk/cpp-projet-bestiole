@@ -21,7 +21,7 @@ private :
 
    int                     width, height;
    std::vector<Bestiole>   listeBestioles;
-
+   Director* director = new Director;
    
 public :
 
@@ -35,6 +35,7 @@ public :
 
    void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
    int nbVoisins( const Bestiole & b );
+   void equiper();
 
 };
 
