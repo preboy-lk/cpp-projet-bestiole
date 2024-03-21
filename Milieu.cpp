@@ -37,6 +37,11 @@ void Milieu::step( void )
 
 }
 
+void Milieu::addMember( Bestiole&& b ) //move
+{ 
+   director->construireBestiole(&b,probabilite);
+   listeBestioles.push_back(std::move(b)); listeBestioles.back().initCoords(width, height); 
+}
 
 int Milieu::nbVoisins( const Bestiole & b )
 {
@@ -50,15 +55,4 @@ int Milieu::nbVoisins( const Bestiole & b )
 
    return nb;
 
-}
-
-void Milieu::equiper()
-{
-   double proba = 0.5;
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-   {
-      director->construireBestiole(&(*it),proba); // Passer la probabilité au directeur
-      //std::cout<< it->afficher() <<std::endl;
-      //std::cout << "Equipped" << std::endl;
-   }
 }

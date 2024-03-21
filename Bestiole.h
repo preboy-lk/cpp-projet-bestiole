@@ -30,7 +30,6 @@ private :
    double            cumulX, cumulY;
    double            orientation;
    double            vitesse;
-
    T               * couleur;
    std::vector<Accessoires*> accessoires;
    std::vector<Capteurs*> capteurs;

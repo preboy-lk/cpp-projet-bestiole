@@ -3,6 +3,7 @@
 
 #include "Bestiole.h"
 #include "Builder.h"
+#include "Aquarium.h"
 #include "accessoires/Accessoires.h"
 #include "accessoires/Camouflage.h"
 #include "accessoires/Carapace.h"
@@ -17,7 +18,6 @@ public:
     BestioleBuilder(double probAccessoire, double probCapteur);
     void construireAccessoires(Bestiole* bestiole) const override;
     void construireCapteurs(Bestiole* bestiole) const override;
-    void ajusterVitesse(Bestiole* bestiole) const override;
 
 private:
     double probAccessoire;

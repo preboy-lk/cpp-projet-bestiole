@@ -48,7 +48,6 @@ void Aquarium::run( void )
 
       flotte->step();
       display( *flotte );
-      flotte->equiper();
       wait( delay );
 
    } // while

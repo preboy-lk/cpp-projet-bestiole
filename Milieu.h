@@ -21,6 +21,7 @@ private :
 
    int                     width, height;
    std::vector<Bestiole>   listeBestioles;
+   double probabilite = 0.2;
    Director* director = new Director;
    
 public :
@@ -33,9 +34,8 @@ public :
 
    void step( void );
 
-   void addMember( const Bestiole & b ) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height); }
+   void addMember( Bestiole && b );
    int nbVoisins( const Bestiole & b );
-   void equiper();
 
 };
 

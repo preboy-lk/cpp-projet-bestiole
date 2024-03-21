@@ -7,7 +7,6 @@ class Builder {
 public:
     virtual void construireAccessoires(Bestiole* bestiole) const = 0;
     virtual void construireCapteurs(Bestiole* bestiole) const = 0;
-    virtual void ajusterVitesse(Bestiole* bestiole) const = 0;
     virtual ~Builder() {}
 };
 
