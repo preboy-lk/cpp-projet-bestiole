@@ -4,6 +4,8 @@
 
 #include "UImg.h"
 #include "Bestiole.h"
+#include "Builder.h"
+#include "Director.h"
 
 #include <iostream>
 #include <vector>
@@ -20,7 +22,9 @@ private :
    int                     width, height;
    std::vector<Bestiole>   listeBestioles;
 
+   
 public :
+
    Milieu( int _width, int _height );
    ~Milieu( void );
 

@@ -5,7 +5,9 @@
 #include "UImg.h"
 
 #include <iostream>
-
+#include "accessoires/Accessoires.h"
+#include "capteurs/Capteurs.h"
+#include <vector>
 using namespace std;
 
 
@@ -30,7 +32,8 @@ private :
    double            vitesse;
 
    T               * couleur;
-
+   std::vector<Accessoires*> accessoires;
+   std::vector<Capteurs*> capteurs;
 private :
    void bouge( int xLim, int yLim );
 
@@ -47,7 +50,11 @@ public :                                           // Forme canonique :
    void initCoords( int xLim, int yLim );
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-
+   void ajouterAccessoires(Accessoires* accessoire);
+   void ajouterCapteurs(Capteurs* capteur);
+   void augmenterVitesse(double facteur);
+   std::string afficher() const;
+   const std::vector<Accessoires*>& getAccessoires() const;
 };
 
 
