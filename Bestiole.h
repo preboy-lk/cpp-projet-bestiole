@@ -54,6 +54,10 @@ public :                                           // Forme canonique :
    void augmenterVitesse(double facteur);
    const std::vector<Accessoires*>& getAccessoires() const;
    const int getIdentite();
+   const double getProtectionCapacite();
+   const double getCamouflageCapacite();
+   const double getOreillesDetectionCapacite();
+   const double getYeuxDetectionCapacite();
 };
 
 

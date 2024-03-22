@@ -11,7 +11,6 @@ void Yeux::draw() const {
     std::cout << "Drawed Yeux" << std::endl;
 }
 
-
 double Yeux::getAudibleDistance()
 {
     return 0.f;
