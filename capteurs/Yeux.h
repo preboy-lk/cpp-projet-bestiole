@@ -13,7 +13,8 @@ public:
     Yeux(Bestiole* bestiole);
     std::string getNom() const override;
     void draw() const override;
-    double getDetectionCapacite() override;
+    double getOreillesDetectionCapacite() override;
+    double getYeuxDetectionCapacite() override;
 };
 
 #endif // YEUX_H

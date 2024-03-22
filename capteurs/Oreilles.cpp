@@ -10,5 +10,7 @@ void Oreilles::draw() const {
     std::cout << "Drawed Oreilles" << std::endl;
 }
 
-double Oreilles::getDetectionCapacite()
+double Oreilles::getOreillesDetectionCapacite()
     {return oreillesDetectionCapacite;}
+double Oreilles::getYeuxDetectionCapacite()
+    {return 0.f;}

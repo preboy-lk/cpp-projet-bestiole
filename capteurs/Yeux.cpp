@@ -11,5 +11,7 @@ void Yeux::draw() const {
     std::cout << "Drawed Yeux" << std::endl;
 }
 
-double Yeux::getDetectionCapacite()
+double Yeux::getOreillesDetectionCapacite()
+    {return 0.f;}
+double Yeux::getYeuxDetectionCapacite()
     {return yeuxDetectionCapacite;}

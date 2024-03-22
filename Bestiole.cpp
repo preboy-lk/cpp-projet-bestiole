@@ -147,6 +147,7 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 }
 
 void Bestiole::ajouterAccessoires(Accessoires* accessoire) {
+
     accessoires.push_back(accessoire);
 }
 
@@ -162,19 +163,43 @@ const std::vector<Accessoires*>& Bestiole::getAccessoires() const {
     return accessoires;
 }
 
-std::string Bestiole::afficher() const {
-    std::string res = "Bestiole équipée avec : ";
-    for (const auto& accessoire : accessoires) {
-        res += accessoire->getNom() + ", ";
-    }
-    for (const auto& capteur : capteurs) {
-        res += capteur->getNom() + ", ";
-    }
-    res += "vitesse : " + std::to_string(vitesse);
-    return res;
-}
 
 const int Bestiole::getIdentite()
 {
    return identite;
+}
+
+const double Bestiole::getProtectionCapacite()
+{
+   double protection_capacite = 0.f;
+   for (const auto& accessoire : accessoires) {
+      protection_capacite += accessoire->getProtectionCapacite();
+   }
+   return protection_capacite;
+}
+
+const double Bestiole::getCamouflageCapacite()
+{
+   double camouflage_capacite = 0.f;
+   for (const auto& accessoire : accessoires) {
+      camouflage_capacite += accessoire->getCamouflageCapacite();
+   }
+   return camouflage_capacite;
+}
+
+const double Bestiole::getOreillesDetectionCapacite()
+{
+   double oreilles_capacite = 0.f;
+   for (const auto& capteur : capteurs) {
+      oreilles_capacite += capteur->getOreillesDetectionCapacite();
+   }
+   return oreilles_capacite;
+}
+const double Bestiole::getYeuxDetectionCapacite()
+{
+   double yeux_capacite = 0.f;
+   for (const auto& capteur : capteurs) {
+      yeux_capacite += capteur->getYeuxDetectionCapacite();
+   }
+   return yeux_capacite;
 }
