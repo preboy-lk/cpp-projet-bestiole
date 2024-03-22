@@ -11,9 +11,7 @@
 #include "Prevoyante.h"
 
 #include "accessoires/Accessoires.h"
-#include "accessoires/Nageoire.h"
-#include "accessoires/Carapace.h"
-#include "accessoires/Camouflage.h"
+#include "capteurs/Capteurs.h"
 
 #include <iostream>
 
@@ -53,14 +51,17 @@ private :
    Behavior        * behavior;
 
    std::vector<Accessoires*> accessoires;
-
+   std::vector<Capteurs*> capteurs;
    T               * couleur;
 
 private :
    void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-   Bestiole( int id_behavior, int age, std::vector<Accessoires*> accessoire );    // Constructeur par defaut
+   Bestiole(   int id_behavior, 
+               int age, 
+               std::vector<Accessoires*>&& accessoires,
+               std::vector<Capteurs*>&& Capteurs); // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
                                                    // Operateur d'affectation binaire par defaut
@@ -96,13 +97,20 @@ public :                                           // Forme canonique :
    void setOrientation(double newOrientation);
 
    const std::vector<Accessoires*>& getAccessoires() const;
-   const double getProtectionCapacite();
-   const double getCamouflageCapacite();
+   const std::vector<Capteurs*>& getCapteurs() const;
 
+   const double getProtectionCapacite() ;
+   const double getCamouflageCapacite() ;
+   const double getOreillesDetectionCapacite() const;
+   const double getYeuxDetectionCapacite() const;
+   const double getVisionAngle() const;
+   const double getVisionDistance() const;
+   const double getAudibleDistance() const;
+   const double getVitesseChangementFacteur();
    double getSize(){return size;}
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-
+   
 };
 
 

@@ -4,7 +4,9 @@
 #ifndef _CREATOR_H_
 #define _CREATOR_H_
 
+#include<memory>
 #include "Bestiole.h"
+#include "BestioleBuilder.h"
 
 class Creator {
 

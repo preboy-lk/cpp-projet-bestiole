@@ -9,18 +9,22 @@ const double      Bestiole::LIMITE_VUE = 80.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( int id_behavior, int age, std::vector<Accessoires*> accessoire )
+Bestiole::Bestiole(  int id_behavior, 
+                     int age, 
+                     std::vector<Accessoires*>&& accessoiresPourEquiper,
+                     std::vector<Capteurs*>&& capteursPourEquiper)
 {
    identite = ++next;
    vitesse = static_cast<double>( rand() )/RAND_MAX *MAX_VITESSE;
-   accessoires = accessoire;
    cout << "const Bestiole (" << identite << ") par defaut " << endl;
+   accessoires = std::move(accessoiresPourEquiper);
+   capteurs = std::move(capteursPourEquiper);
    for ( std::vector<Accessoires*>::iterator it = accessoires.begin() ; it != accessoires.end() ; ++it )
    {
       (*it)->info();
-      //vitesse *= (*it)->getFacteur(); 
    }
-
+   std::cout << this->getVitesseChangementFacteur() << std::endl;
+   vitesse *= this->getVitesseChangementFacteur();
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX *2.*M_PI; //radian
@@ -156,11 +160,12 @@ void Bestiole::draw( UImg & support )
    support.draw_ellipse( x, y, size, size/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, size/2., couleur );
    
-   std::cout << "Nombres d'accessoires : " << accessoires.size() << std::endl;
-   for (const auto& accessoire : accessoires) {
-      std::cout << "Drawing accesories..." << std::endl;
-      accessoire->draw(x,y,size,support,couleur);
-   }
+   //std::cout << "Nombres d'accessoires : " << accessoires.size() << std::endl;
+   
+   // for (const auto& accessoire : accessoires) {
+   //    std::cout << "Drawing accesories..." << std::endl;
+   //    accessoire->draw(x,y,size,support,couleur);
+   // }
 
 }
 
@@ -175,20 +180,27 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 )
 
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
-
    double         dist;
-
-
+   double         angle;
+   bool           zoneAudible, zoneVisible;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   return ( dist <= LIMITE_VUE );
+   angle = std::asin((b.y-y)/dist);
 
+   zoneAudible =  dist < this->getAudibleDistance();
+   zoneVisible =  (dist < this->getVisionDistance()) 
+                  && angle > (orientation - this->getVisionAngle()/2) 
+                  && angle < (orientation + this->getVisionAngle()/2);
+   if (zoneAudible && static_cast<double>( rand() )/RAND_MAX < this->getOreillesDetectionCapacite())
+      return true;
+   else if (zoneVisible && static_cast<double>( rand() )/RAND_MAX < this->getOreillesDetectionCapacite())
+      return true;
+   else
+      return false;
 }
 
 bool Bestiole::collision( Bestiole & b )
 {
-   double         dist;
-   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   if(dist <= size){
+   if(this->jeTeVois(b)){
       if(abs(cos(orientation)) < abs(sin(orientation)) ){
          orientation = M_PI+orientation;
          b.setOrientation(M_PI+b.orientation);
@@ -229,6 +241,10 @@ const std::vector<Accessoires*>& Bestiole::getAccessoires() const {
     return accessoires;
 }
 
+const std::vector<Capteurs*>& Bestiole::getCapteurs() const {
+    return capteurs;
+}
+
 const double Bestiole::getProtectionCapacite()
 {
    double protection_capacite = 0.f;
@@ -245,4 +261,59 @@ const double Bestiole::getCamouflageCapacite()
       camouflage_capacite += accessoire->getCamouflageCapacite();
    }
    return camouflage_capacite;
+}
+
+const double Bestiole::getOreillesDetectionCapacite() const
+{
+   double oreilles_capacite = 0.f;
+   for (const auto& capteur : capteurs) {
+      oreilles_capacite += capteur->getOreillesDetectionCapacite();
+   }
+   return oreilles_capacite;
+}
+const double Bestiole::getYeuxDetectionCapacite() const
+{
+   double yeux_capacite = 0.f;
+   for (const auto& capteur : capteurs) {
+      yeux_capacite += capteur->getYeuxDetectionCapacite();
+   }
+   return yeux_capacite;
+}
+
+const double Bestiole::getVisionAngle() const
+{
+   double vision_angle = 0.f;
+   for (const auto& capteur : capteurs) {
+      if (capteur->getVisionAngle() > vision_angle){
+         vision_angle= capteur->getVisionAngle();}
+   }
+   return vision_angle;
+}
+
+const double Bestiole::getVisionDistance() const
+{
+   double vision_distance = 0.f;
+   for (const auto& capteur : capteurs) {
+      if (capteur->getVisionDistance() > vision_distance){
+         vision_distance= capteur->getVisionDistance();}
+   }
+   return vision_distance;
+}
+
+const double Bestiole::getAudibleDistance() const
+{
+   double audio_distance = 0.f;
+   for (const auto& capteur : capteurs) {
+      if (capteur->getAudibleDistance() > audio_distance){
+         audio_distance= capteur->getAudibleDistance();}
+   }
+   return audio_distance;}
+
+const double Bestiole::getVitesseChangementFacteur()
+{
+   double facteur = 1.f;
+   for (const auto& accessoire : accessoires) {
+      facteur *= accessoire->getFacteur();
+   }
+   return facteur;
 }

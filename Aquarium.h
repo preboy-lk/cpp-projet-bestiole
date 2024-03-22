@@ -37,17 +37,17 @@ public :
    static constexpr float VISION_ANGLE_MAX = M_PI/3; // radian
    static constexpr float VISION_DISTANCE_MIN = 40.0f; 
    static constexpr float VISION_DISTANCE_MAX = 45.0f; 
-   static constexpr float VISION_DETECTION_PROBABILITE_MIN = 0.1f;
+   static constexpr float VISION_DETECTION_PROBABILITE_MIN = 0.3f;
    static constexpr float VISION_DETECTION_PROBABILITE_MAX = 0.9f;
    static constexpr float AUDIBLE_DISTANCE_MIN = 25.0f;
    static constexpr float AUDIBLE_DISTANCE_MAX = 30.0f;
-   static constexpr float AUDIBLE_DETECTION_PROBABILITE_MIN = 0.1f;
-   static constexpr float AUDIBLE_DETECTION_PROBABILITE_MAX = 0.8f;
+   static constexpr float AUDIBLE_DETECTION_PROBABILITE_MIN = 0.f;
+   static constexpr float AUDIBLE_DETECTION_PROBABILITE_MAX = 0.6f;
 
    // Paramètres pour les accessoires
    static constexpr float CAMOUFLAGE_CAPACITE_MIN = 0.f;
    static constexpr float CAMOUFLAGE_CAPACITE_MAX = 1.f;
-   static constexpr float VITESSE_REDUCTION_COEFF = 2.f;
+   static constexpr float VITESSE_REDUCTION_COEFF = 1.4f;
    static constexpr float ACCELERATION_COEFF = 2.f;
    static constexpr float MEURT_REDUCTION_COEFF = 1.1f;
 

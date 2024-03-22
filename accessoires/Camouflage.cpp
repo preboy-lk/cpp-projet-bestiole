@@ -15,3 +15,5 @@ double Camouflage::getCamouflageCapacite()
     {return camouflageCapacite;}
 double Camouflage::getProtectionCapacite()
     {return 0.f;}
+double Camouflage::getFacteur() 
+    {return 1.f;}

@@ -16,3 +16,5 @@ double Nageoire::getProtectionCapacite()
     {return 0.f;}
 double Nageoire::getCamouflageCapacite()
     {return 0.f;}
+double Nageoire::getFacteur()
+    {return facteur;}
