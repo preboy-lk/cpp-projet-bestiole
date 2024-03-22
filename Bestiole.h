@@ -58,6 +58,10 @@ public :                                           // Forme canonique :
    const double getCamouflageCapacite();
    const double getOreillesDetectionCapacite();
    const double getYeuxDetectionCapacite();
+   const double getVisionAngle();
+   const double getVisionDistance();
+   double getAudibleDistance();
+
 };
 
 

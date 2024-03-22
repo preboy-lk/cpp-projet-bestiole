@@ -139,9 +139,11 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
 
    double         dist;
-
+   double         angle;
 
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   angle = std::asin((b.y-y)/dist);
+   if (dist < getAudibleDistance())
    return ( dist <= LIMITE_VUE );
 
 }
@@ -201,4 +203,32 @@ const double Bestiole::getYeuxDetectionCapacite()
       yeux_capacite += capteur->getYeuxDetectionCapacite();
    }
    return yeux_capacite;
+}
+
+const double Bestiole::getVisionAngle()
+{
+   double vision_angle = 0.f;
+   for (const auto& capteur : capteurs) {
+      if (capteur->getVisionAngle() > vision_angle){
+         vision_angle= capteur->getVisionAngle();}
+   }
+   return vision_angle;
+}
+const double Bestiole::getVisionDistance()
+{
+   double vision_distance = 0.f;
+   for (const auto& capteur : capteurs) {
+      if (capteur->getVisionDistance() > vision_distance){
+         vision_distance= capteur->getVisionDistance();}
+   }
+   return vision_distance;
+}
+double Bestiole::getAudibleDistance()
+{
+   double audio_distance = 0.f;
+   for (const auto& capteur : capteurs) {
+      if (capteur->getAudibleDistance() > audio_distance){
+         audio_distance= capteur->getAudibleDistance();}
+   }
+   return audio_distance;
 }
