@@ -156,10 +156,8 @@ void Bestiole::draw( UImg & support )
    support.draw_ellipse( x, y, size, size/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, size/2., couleur );
    
-   std::cout << "Nombres d'accessoires : " << accessoires.size() << std::endl;
    for (const auto& accessoire : accessoires) {
-      std::cout << "Drawing accesories..." << std::endl;
-      accessoire->draw(x,y,size,support,couleur);
+      accessoire->draw(x,y,size,orientation,support,couleur);
    }
 
 }

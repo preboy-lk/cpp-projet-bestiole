@@ -14,7 +14,7 @@ Bestiole* Creator::createBestiole(){
 
 
 		if (static_cast<double>( rand() )/RAND_MAX  < Aquarium::NAGEOIRE_PROBABILITE) {
-        	accessoires.push_back(nageoire);
+        accessoires.push_back(nageoire);
 	    }
 
 	    if (static_cast<double>( rand() )/RAND_MAX < Aquarium::CARAPACE_PROBABILITE ) {
