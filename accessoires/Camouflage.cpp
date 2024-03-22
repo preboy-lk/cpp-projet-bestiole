@@ -7,7 +7,7 @@ void Camouflage::info() {
 std::string Camouflage::getNom() const {
     return "Camouflage";
 }
-void Camouflage::draw() const {
+void Camouflage::draw(int x,int y,double size,UImg & support, T* couleur) const {
     std::cout << "Drawed Camouflage" << std::endl;
 }
 

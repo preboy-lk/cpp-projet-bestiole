@@ -11,7 +11,7 @@ public:
     void info() ;
     Nageoire(void) {};
     std::string getNom() const override;
-    void draw() const override;
+    void draw(int x,int y,double size,UImg & support, T* couleur) const override;
     double getCamouflageCapacite() override;
     double getProtectionCapacite() override;
     double getFacteur() {return facteur;}

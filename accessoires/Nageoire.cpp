@@ -4,7 +4,7 @@ std::string Nageoire::getNom() const {
     return "Nageoire";
 }
 
-void Nageoire::draw() const{
+void Nageoire::draw(int x,int y,double size,UImg & support, T* couleur) const{
     std::cout<< "Drawed Nageoire" <<std::endl;
 }
 
