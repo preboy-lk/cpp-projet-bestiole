@@ -3,11 +3,21 @@
 
 
 #include "UImg.h"
+
 #include "Behavior.h"
-#include "Peureuse.h"
 #include "Gregaire.h"
+#include "Peureuse.h"
+#include "Kamikaze.h"
+#include "Prevoyante.h"
+
+#include "accessoires/Accessoires.h"
+#include "accessoires/Nageoire.h"
+#include "accessoires/Carapace.h"
+#include "accessoires/Camouflage.h"
 
 #include <iostream>
+
+#include <vector>
 
 #include <cstdlib>
 #include <cmath>
@@ -22,7 +32,7 @@ class Bestiole
 {
 
 private :
-   static const double     AFF_SIZE;
+   static const int        AFF_SIZE;
    static const double     MAX_VITESSE;
    static const double     LIMITE_VUE;
 
@@ -35,10 +45,14 @@ private :
    double            orientation;
    double            vitesse;
 
+   double            size;
+
    int               ageLimite;
 
-   int               randBehavior;
+   int               randBehavior; //id behavior
    Behavior        * behavior;
+
+   std::vector<Accessoires*> accessoires;
 
    T               * couleur;
 
@@ -46,7 +60,7 @@ private :
    void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
-   Bestiole( int id_behavior, int age );                               // Constructeur par defaut
+   Bestiole( int id_behavior, int age, std::vector<Accessoires*> accessoire );    // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
                                                    // Operateur d'affectation binaire par defaut
@@ -57,29 +71,35 @@ public :                                           // Forme canonique :
 
    void initCoords( int xLim, int yLim );
 
-   Behavior* getBehavior(){return behavior;};
+   int getId() {return identite;}
 
+   int getIdBehavior() {return randBehavior;}
+   Behavior* getBehavior(){return behavior;}
    void changeBehavior(Behavior* behavior);
+   void setRandBehavior(int nbr){randBehavior=nbr;}
 
-   void setRandBehavior(int nbr){randBehavior=nbr;};
+   int getAge() {return ageLimite;}
+   void setAge(int age) {ageLimite = age;}
 
-   int getAge() {return ageLimite;};
+   int getVitesse() {return vitesse;}
+   void setVitesse(int speed) {vitesse = speed;}
 
-   void setAge(int age) {ageLimite = age;};
-
-   void esperanceVie() { setAge(getAge()-1);} ;
+   void esperanceVie() { setAge(getAge()-1);} 
 
    bool collision( Bestiole & b );
 
-   int getX() {return x;};
+   int getX() {return x;}
+   void setCumulX(double cuX) {cumulX = cuX;}
+   int getY() {return y;}
 
-   void setCumulX(double cuX) {cumulX = cuX;};
-
-   int getY() {return y;};
-
-   double getOrientation() {return orientation;};
-
+   double getOrientation() {return orientation;}
    void setOrientation(double newOrientation);
+
+   const std::vector<Accessoires*>& getAccessoires() const;
+   const double getProtectionCapacite();
+   const double getCamouflageCapacite();
+
+   double getSize(){return size;}
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
 

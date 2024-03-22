@@ -30,7 +30,9 @@ public :
    void step( void );
 
    void addMember( Bestiole* b ) { listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height); }
+   Bestiole* getMember();
    int nbVoisins( const Bestiole & b );
+   std::vector<Bestiole*> bestioleEnvironnante(const Bestiole & b);
 
 };
 

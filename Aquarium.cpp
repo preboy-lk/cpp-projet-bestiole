@@ -2,6 +2,8 @@
 
 #include "Milieu.h"
 
+#include "Clonage.h"
+
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
 {
@@ -32,6 +34,7 @@ Aquarium::~Aquarium( void )
 
 void Aquarium::run( void )
 {
+   Clonage* cloneur = new Clonage; //Crée un cloneur
 
    cout << "running Aquarium" << endl;
 
@@ -46,6 +49,13 @@ void Aquarium::run( void )
          if ( is_keyESC() ) close();
       }
 
+      //Add clone
+      /*
+      int prob = std::rand() % 100;
+      if(prob <= 2 ){
+         flotte->addMember( cloneur->createClone(flotte->getMember()) );
+      }
+      */
       flotte->step();
       display( *flotte );
 

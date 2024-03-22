@@ -1,28 +1,32 @@
 #include "Bestiole.h"
-#include "Gregaire.h"
-#include "Peureuse.h"
-#include "Kamikaze.h"
-#include "Prevoyante.h"
 #include "Milieu.h"
 
 
-const double      Bestiole::AFF_SIZE = 20.;
+const int         Bestiole::AFF_SIZE = 10;
 const double      Bestiole::MAX_VITESSE = 10.;
-const double      Bestiole::LIMITE_VUE = 30.;
+const double      Bestiole::LIMITE_VUE = 80.;
 
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( int id_behavior, int age )
+Bestiole::Bestiole( int id_behavior, int age, std::vector<Accessoires*> accessoire )
 {
    identite = ++next;
-
+   vitesse = static_cast<double>( rand() )/RAND_MAX *MAX_VITESSE;
+   accessoires = accessoire;
    cout << "const Bestiole (" << identite << ") par defaut " << endl;
+   for ( std::vector<Accessoires*>::iterator it = accessoires.begin() ; it != accessoires.end() ; ++it )
+   {
+      (*it)->info();
+      vitesse *= (*it)->getFacteur(); 
+   }
+   cout<<accessoires.size() <<endl;
 
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX *2.*M_PI; //radian
-   vitesse = static_cast<double>( rand() )/RAND_MAX *MAX_VITESSE;
+   
+   size = rand() % AFF_SIZE + 3*AFF_SIZE/4;
 
    couleur = new T[ 3 ];
    couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -53,6 +57,8 @@ Bestiole::Bestiole( const Bestiole & b )
 {
    identite = ++next;
 
+   accessoires = b.accessoires;
+
    cout << "const Bestiole (" << identite << ") par copie" << endl;
 
    x = b.x;
@@ -60,6 +66,7 @@ Bestiole::Bestiole( const Bestiole & b )
    cumulX = cumulY = 0.;
    orientation = b.orientation;
    vitesse = b.vitesse;
+   size = b.size;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
@@ -143,12 +150,12 @@ void Bestiole::setOrientation(double newOrientation){
 void Bestiole::draw( UImg & support )
 {
 
-   double         xt = x + cos( orientation )*AFF_SIZE/2.1;
-   double         yt = y - sin( orientation )*AFF_SIZE/2.1;
+   double         xt = x + cos( orientation )*size/2.1;
+   double         yt = y - sin( orientation )*size/2.1;
 
 
-   support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
-   support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
+   support.draw_ellipse( x, y, size, size/5., -orientation/M_PI*180., couleur );
+   support.draw_circle( xt, yt, size/2., couleur );
 
 }
 
@@ -176,7 +183,7 @@ bool Bestiole::collision( Bestiole & b )
 {
    double         dist;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   if(dist <= AFF_SIZE){
+   if(dist <= size){
       if(abs(cos(orientation)) < abs(sin(orientation)) ){
          orientation = M_PI+orientation;
          b.setOrientation(M_PI+b.orientation);
@@ -209,4 +216,28 @@ void Bestiole::changeBehavior(Behavior* behavior)
       //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Prevoyante=> " << endl;
       }
    }
+}
+
+
+//ACCESSOIRES
+const std::vector<Accessoires*>& Bestiole::getAccessoires() const {
+    return accessoires;
+}
+
+const double Bestiole::getProtectionCapacite()
+{
+   double protection_capacite = 0.f;
+   for (const auto& accessoire : accessoires) {
+      protection_capacite += accessoire->getProtectionCapacite();
+   }
+   return protection_capacite;
+}
+
+const double Bestiole::getCamouflageCapacite()
+{
+   double camouflage_capacite = 0.f;
+   for (const auto& accessoire : accessoires) {
+      camouflage_capacite += accessoire->getCamouflageCapacite();
+   }
+   return camouflage_capacite;
 }

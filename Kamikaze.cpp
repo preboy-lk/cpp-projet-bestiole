@@ -4,7 +4,9 @@ void Kamikaze::info()
 {
 	cout << "Bestiole Kamikaze" << endl;
 }
-Kamikaze::Kamikaze(void) {}
+Kamikaze::Kamikaze(void) {
+	
+}
 Kamikaze::~Kamikaze(void) {
 	cout << "Destruct Kamikaze" << endl;
 }
