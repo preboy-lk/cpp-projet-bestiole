@@ -39,7 +39,7 @@ void Milieu::step( void )
 
 void Milieu::addMember( Bestiole&& b ) //move
 { 
-   director->construireBestiole(&b,probabilite);
+   director->construireBestiole(&b);
    listeBestioles.push_back(std::move(b)); listeBestioles.back().initCoords(width, height); 
 }
 

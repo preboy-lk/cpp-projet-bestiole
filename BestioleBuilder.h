@@ -15,7 +15,6 @@
 
 class BestioleBuilder : public Builder {
 public:
-    BestioleBuilder(double probAccessoire, double probCapteur);
     void construireAccessoires(Bestiole* bestiole) const override;
     void construireCapteurs(Bestiole* bestiole) const override;
 

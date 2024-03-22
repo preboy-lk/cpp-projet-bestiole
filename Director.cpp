@@ -1,7 +1,7 @@
 #include "Director.h"
 
-void Director::construireBestiole(Bestiole* bestiole, double proba) const {
-    BestioleBuilder builder(proba, proba);
+void Director::construireBestiole(Bestiole* bestiole) const {
+    BestioleBuilder builder;
     builder.construireAccessoires(bestiole);
     builder.construireCapteurs(bestiole);
 }

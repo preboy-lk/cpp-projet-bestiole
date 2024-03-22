@@ -1,7 +1,7 @@
 #include "Camouflage.h"
 
-Camouflage::Camouflage(Bestiole* bestiole) {
-    std::cout << "const Bestiole (" << bestiole->getIdentite() << ") a un Camouflage" << endl;
+Camouflage::Camouflage() {
+    std::cout << "const Bestiole (" << "I will fix here"<< ") a un Camouflage" << endl;
 }
 
 std::string Camouflage::getNom() const {

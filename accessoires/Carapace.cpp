@@ -1,8 +1,7 @@
 #include "Carapace.h"
 
-Carapace::Carapace(Bestiole* bestiole) {
-    bestiole->augmenterVitesse(1/decelerate);
-    std::cout << "const Bestiole (" << bestiole->getIdentite() << ") a une Carapace" << endl;
+Carapace::Carapace() {
+    std::cout << "const Bestiole (" << "I will fix it" << ") a une Carapace" << endl;
 }
 
 std::string Carapace::getNom() const {

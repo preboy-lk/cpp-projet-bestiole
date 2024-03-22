@@ -9,9 +9,13 @@ private:
     double audibleDistance = Aquarium::AUDIBLE_DISTANCE_MIN + static_cast<double>(rand()) / RAND_MAX * (Aquarium::AUDIBLE_DISTANCE_MAX - Aquarium::AUDIBLE_DISTANCE_MIN);
     double oreillesDetectionCapacite = Aquarium::AUDIBLE_DETECTION_PROBABILITE_MIN + static_cast<double>(rand()) / RAND_MAX * (Aquarium::AUDIBLE_DETECTION_PROBABILITE_MAX - Aquarium::AUDIBLE_DETECTION_PROBABILITE_MIN);;
 public:
-    Oreilles(Bestiole* bestiole);
+    Oreilles();
     std::string getNom() const override;
     void draw() const override;
-    double getDetectionCapacite() override;
+    double getAudibleDistance() override;
+    double getOreillesDetectionCapacite() override;
+    double getVisionAngle() override;   
+    double getVisionDistance() override;
+    double getYeuxDetectionCapacite() override;
 };
 #endif // OREILLES_H

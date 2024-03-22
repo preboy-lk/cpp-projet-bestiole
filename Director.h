@@ -7,7 +7,7 @@
 
 class Director {
 public:
-    void construireBestiole( Bestiole* bestiole, double proba) const;
+    void construireBestiole( Bestiole* bestiole) const;
 };
 
 #endif // DIRECTOR_H

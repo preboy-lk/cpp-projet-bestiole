@@ -162,18 +162,6 @@ const std::vector<Accessoires*>& Bestiole::getAccessoires() const {
     return accessoires;
 }
 
-std::string Bestiole::afficher() const {
-    std::string res = "Bestiole équipée avec : ";
-    for (const auto& accessoire : accessoires) {
-        res += accessoire->getNom() + ", ";
-    }
-    for (const auto& capteur : capteurs) {
-        res += capteur->getNom() + ", ";
-    }
-    res += "vitesse : " + std::to_string(vitesse);
-    return res;
-}
-
 const int Bestiole::getIdentite()
 {
    return identite;
