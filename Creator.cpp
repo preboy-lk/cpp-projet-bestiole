@@ -15,12 +15,10 @@ Bestiole* Creator::createBestiole(){
 
 		if (static_cast<double>( rand() )/RAND_MAX  < Aquarium::NAGEOIRE_PROBABILITE) {
         	accessoires.push_back(nageoire);
-        	//bestiole->augmenterVitesse(nageoire->getAccelerate());
 	    }
 
 	    if (static_cast<double>( rand() )/RAND_MAX < Aquarium::CARAPACE_PROBABILITE ) {
 	        accessoires.push_back(carapace);
-        	//bestiole->augmenterVitesse(1/carapace->getDecelerate());
 	    }
 	    if (static_cast<double>( rand() )/RAND_MAX < Aquarium::CAMOUFLAGE_PROBABILITE ) {
 	        accessoires.push_back(camouflage);

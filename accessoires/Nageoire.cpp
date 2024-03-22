@@ -11,6 +11,7 @@ void Nageoire::draw() const{
 void Nageoire::info() {
     std::cout <<" a une Nageoire" << endl;
 }
+
 double Nageoire::getProtectionCapacite()
     {return 0.f;}
 double Nageoire::getCamouflageCapacite()

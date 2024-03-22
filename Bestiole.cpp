@@ -18,9 +18,8 @@ Bestiole::Bestiole( int id_behavior, int age, std::vector<Accessoires*> accessoi
    for ( std::vector<Accessoires*>::iterator it = accessoires.begin() ; it != accessoires.end() ; ++it )
    {
       (*it)->info();
-      vitesse *= (*it)->getFacteur(); 
+      //vitesse *= (*it)->getFacteur(); 
    }
-   cout<<accessoires.size() <<endl;
 
    x = y = 0;
    cumulX = cumulY = 0.;
