@@ -8,7 +8,7 @@
 class Accessoires {
 public:
     virtual std::string getNom() const = 0;
-    virtual void draw(int x,int y, double size,UImg & support, T* couleur) const = 0;
+    virtual void draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const = 0;
     virtual double getCamouflageCapacite() = 0;
     virtual double getProtectionCapacite() = 0;
     virtual void info() = 0;
