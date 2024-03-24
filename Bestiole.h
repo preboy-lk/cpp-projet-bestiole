@@ -46,6 +46,7 @@ private :
    double            size;
 
    int               ageLimite;
+   bool              stillAlive = true;
 
    int               randBehavior; //id behavior
    Behavior        * behavior;
@@ -86,6 +87,7 @@ public :                                           // Forme canonique :
    void setVitesse(int speed) {vitesse = speed;}
 
    void esperanceVie() { setAge(getAge()-1);} 
+   const bool getVieStatut() const { return stillAlive;}
 
    bool collision( Bestiole & b );
 

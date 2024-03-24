@@ -29,7 +29,7 @@ Bestiole::Bestiole(  int id_behavior,
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX *2.*M_PI; //radian
    
-   size = rand() % AFF_SIZE + 3*AFF_SIZE/4;
+   size = rand() % AFF_SIZE + AFF_SIZE;
 
    couleur = new T[ 3 ];
    couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -198,10 +198,17 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 
 bool Bestiole::collision( Bestiole & b )
 {
-   if(this->jeTeVois(b)){
-      if(abs(cos(orientation)) < abs(sin(orientation)) ){
+   double dist;
+   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   if(dist < (size + b.size))
+   {
+      if(abs(cos(orientation)) < abs(sin(orientation)) )
+      {
          orientation = M_PI+orientation;
          b.setOrientation(M_PI+b.orientation);
+      }
+      if (static_cast<double>(rand())/RAND_MAX < this->getProtectionCapacite()) {
+         stillAlive = false;
       }
       return true;
    }
