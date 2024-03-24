@@ -23,7 +23,6 @@ Bestiole::Bestiole(  int id_behavior,
    {
       (*it)->info();
    }
-   std::cout << this->getVitesseChangementFacteur() << std::endl;
    vitesse *= this->getVitesseChangementFacteur();
    x = y = 0;
    cumulX = cumulY = 0.;
@@ -50,7 +49,9 @@ Bestiole::Bestiole(  int id_behavior,
    else if(randBehavior==4)
       behavior = new Prevoyante;
    behavior->info();
-   int multipleRandom = rand() % 2; //Generate a random number between 1(true) and 0(false)
+   bool multipleRandom = false; 
+   if (static_cast<float> (rand())/RAND_MAX < MULTIPLE_RATIO)
+      multipleRandom = true;
    behavior->setMultiple(multipleRandom); //Set randomly multiple behavior or not.
    changeBehavior(behavior);
 }
@@ -217,10 +218,38 @@ bool Bestiole::collision( Bestiole & b )
    }
    return false;
 }
+int Bestiole::selectionComportement()
+{
+   /*
+   Fonction pour sélectionner un comportement pour l'objet Bestiole en fonction de ratios prédéfinis
+   Renvoie un entier représentant le type de comportement sélectionné
+   */
+	std::vector<int> values = {1, 2, 3, 4};
+	float pourcentageTotalSansPersonalitesMultiples = 1. - MULTIPLE_RATIO;
+	float tauxGregaire = GREGAIRE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float tauxPeureuse = PEUREUSE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float tauxKamikaze = KAMIKAZE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float tauxPrevoyante = PREVOYANTE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	
+	std::vector<float> probabilities = {tauxGregaire, tauxPeureuse, tauxKamikaze, tauxPrevoyante};
+
+	// Generate a random probability
+	double randNum = static_cast<float>(rand()) / RAND_MAX;
+
+	// Determine the random variable based on probabilities
+	double cumulativeProbability = 0.0;
+	for (int i = 0; i < probabilities.size(); ++i) 
+	{
+		cumulativeProbability += probabilities[i];
+		if (randNum < cumulativeProbability) {
+			return values[i];
+		}
+	}
+}
 
 void Bestiole::changeBehavior(Behavior* behavior)
 {
-   int behaviorRandom = rand() % 4 + 1;
+   int behaviorRandom = this->selectionComportement();
    if(behavior->getMultiple() == true)
    {
       //cout << "Bestiole " <<identite <<" comportement multiple => " <<behavior->getMultiple() << endl;

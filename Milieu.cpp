@@ -48,7 +48,6 @@ void Milieu::step( void )
       {
          if( ito != it ){
             (*ito)->collision((**it)) ;
-            int prob = std::rand() % 100;
             if(!(*ito)->getVieStatut() && (*ito)->collision((**it))){
                std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
             }
@@ -143,4 +142,10 @@ std::vector<Bestiole*> Milieu::bestioleEnvironnante(const Bestiole & b)
       if ( !(b == **it) && b.jeTeVois(**it) )
          voisins.push_back(*it);
    return voisins;
+}
+
+void Milieu::addMember(Bestiole* b)
+{
+   std::cout<< "Bestiole " << b->getId() << "est ne naturellement" << std::endl;
+   listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height);
 }

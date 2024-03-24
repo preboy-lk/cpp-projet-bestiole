@@ -16,7 +16,7 @@
 #include <iostream>
 
 #include <vector>
-
+#include <memory>
 #include <cstdlib>
 #include <cmath>
 
@@ -77,6 +77,7 @@ public :                                           // Forme canonique :
 
    int getIdBehavior() {return randBehavior;}
    Behavior* getBehavior(){return behavior;}
+   int selectionComportement();
    void changeBehavior(Behavior* behavior);
    void setRandBehavior(int nbr){randBehavior=nbr;}
 

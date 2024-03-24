@@ -5,10 +5,10 @@
 
 namespace Configurations {
     //Taux de naissance
-    static constexpr float TAUX_NAISSANCE = 0.1f;
+    static constexpr double TAUX_NAISSANCE = 0.1f;
 
     // Clonage Probabilité
-    static constexpr float CLONAGE_PROBABILITE = 0.01f;
+    static constexpr double CLONAGE_PROBABILITE = 0.1f;
 
     // Pourcentage de bestioles possédant un comportement dynamique particulier
     static constexpr float GREGAIRE_RATIO = 0.2f;
@@ -18,7 +18,7 @@ namespace Configurations {
     static constexpr float MULTIPLE_RATIO = 0.2f;
 
     // probabilité de décès après une collision
-    static constexpr float MEURT_COLLISION_PROBABILITE = 0.05f;
+    static constexpr float MEURT_COLLISION_PROBABILITE = 0.1f;
 
     // Paramètres pour les capteurs : yeux et oreilles
     static constexpr float VISION_ANGLE_MIN = 0.0f; // radian

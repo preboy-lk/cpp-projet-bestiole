@@ -3,9 +3,13 @@
 
 #include <iostream>
 #include <CImg.h>
+#include <memory>
+#include <chrono>
+#include <thread>
+
 #include "Milieu.h"
 #include "Clonage.h"
-
+#include "Creator.h"
 
 using namespace std;
 using namespace cimg_library;

@@ -4,7 +4,8 @@
 #ifndef _CREATOR_H_
 #define _CREATOR_H_
 
-#include<memory>
+#include <memory>
+#include <random>
 #include "Bestiole.h"
 #include "BestioleBuilder.h"
 
