@@ -3,8 +3,16 @@
 std::string Yeux::getNom() const {
     return "Yeux";
 }
-void Yeux::draw() const {
-    std::cout << "Drawed Yeux" << std::endl;
+void Yeux::draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const {
+    // double xq = x;
+    // double yq = y;
+    // double angle = visionAngle/2;
+    // double xb = xq + visionDistance * cos(orientation - angle);
+    // double yb = yq - visionDistance * sin(orientation - angle);
+    // double xc = xq + visionDistance * cos(orientation + angle);
+    // double yc = yq - visionDistance * sin(orientation + angle);
+    // float opacite = 0.3;
+    // support.draw_triangle( xq, yq, xb, yb, xc, yc, couleur );
 }
 
 double Yeux::getAudibleDistance()

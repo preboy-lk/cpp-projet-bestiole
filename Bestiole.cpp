@@ -166,7 +166,10 @@ void Bestiole::draw( UImg & support )
        //std::cout << "Drawing accesories..." << std::endl;
        accessoire->draw(x,y,size,orientation,support,couleur);
    }
-
+   for (const auto& capteur : capteurs) {
+       //std::cout << "Drawing accesories..." << std::endl;
+       capteur->draw(xt,yt,size,orientation,support,couleur);
+   }
 }
 
 
@@ -221,27 +224,28 @@ bool Bestiole::collision( Bestiole & b )
 int Bestiole::selectionComportement()
 {
    /*
-   Fonction pour sélectionner un comportement pour l'objet Bestiole en fonction de ratios prédéfinis
+   Fonction pour sélectionner un comportement pour une bestiole en fonction de ratios prédéfinis
    Renvoie un entier représentant le type de comportement sélectionné
    */
 	std::vector<int> values = {1, 2, 3, 4};
 	float pourcentageTotalSansPersonalitesMultiples = 1. - MULTIPLE_RATIO;
+   float tauxPeureuse = PEUREUSE_RATIO/pourcentageTotalSansPersonalitesMultiples;
 	float tauxGregaire = GREGAIRE_RATIO/pourcentageTotalSansPersonalitesMultiples;
-	float tauxPeureuse = PEUREUSE_RATIO/pourcentageTotalSansPersonalitesMultiples;
 	float tauxKamikaze = KAMIKAZE_RATIO/pourcentageTotalSansPersonalitesMultiples;
 	float tauxPrevoyante = PREVOYANTE_RATIO/pourcentageTotalSansPersonalitesMultiples;
 	
-	std::vector<float> probabilities = {tauxGregaire, tauxPeureuse, tauxKamikaze, tauxPrevoyante};
+	std::vector<float> probabilities = {tauxPeureuse, tauxGregaire, tauxKamikaze, tauxPrevoyante};
 
 	// Generate a random probability
 	double randNum = static_cast<float>(rand()) / RAND_MAX;
 
 	// Determine the random variable based on probabilities
 	double cumulativeProbability = 0.0;
-	for (int i = 0; i < probabilities.size(); ++i) 
+	for (size_t i = 0; i < probabilities.size(); ++i) 
 	{
 		cumulativeProbability += probabilities[i];
 		if (randNum < cumulativeProbability) {
+         //std::cout << "Create type " << values[i] << std::endl;
 			return values[i];
 		}
 	}
@@ -354,3 +358,9 @@ const double Bestiole::getVitesseChangementFacteur()
    }
    return facteur;
 }
+
+// void Bestiole::action( Milieu & monMilieu )
+// {
+//    behavior -> action(monMilieu, *this);
+//    bouge( monMilieu.getWidth(), monMilieu.getHeight() );
+// }

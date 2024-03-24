@@ -3,8 +3,8 @@
 std::string Oreilles::getNom() const {
     return "Oreilles";
 }
-void Oreilles::draw() const {
-    std::cout << "Drawed Oreilles" << std::endl;
+void Oreilles::draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const {
+    //support.draw_circle( x, y, audibleDistance, couleur );
 }
 
 double Oreilles::getAudibleDistance()

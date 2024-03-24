@@ -11,7 +11,7 @@ private:
 public:
     Yeux(void) {};
     std::string getNom() const override;
-    void draw() const override;
+    void draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const override;
     double getAudibleDistance() override;
     double getOreillesDetectionCapacite() override;
     double getVisionAngle() override;   

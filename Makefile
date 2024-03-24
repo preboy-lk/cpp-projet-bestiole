@@ -7,20 +7,20 @@ Aquarium.o : Aquarium.h Aquarium.cpp
 Bestiole.o : Bestiole.h Bestiole.cpp 
 	g++ -Wall -std=c++11  -c Bestiole.cpp -I .
 	
-Peureuse.o : Peureuse.h Peureuse.cpp
-	g++ -Wall -std=c++11   -c Peureuse.cpp -I .
+Peureuse.o : comportements/Peureuse.h comportements/Peureuse.cpp
+	g++ -Wall -std=c++11   -c comportements/Peureuse.cpp -I .
 
-Prevoyante.o : Prevoyante.h Prevoyante.cpp
-	g++ -Wall -std=c++11   -c Prevoyante.cpp -I .
+Prevoyante.o : comportements/Prevoyante.h comportements/Prevoyante.cpp
+	g++ -Wall -std=c++11   -c comportements/Prevoyante.cpp -I .
 	
-Kamikaze.o : Kamikaze.h Kamikaze.cpp
-	g++ -Wall -std=c++11   -c Kamikaze.cpp -I .
+Kamikaze.o : comportements/Kamikaze.h comportements/Kamikaze.cpp
+	g++ -Wall -std=c++11   -c comportements/Kamikaze.cpp -I .
 
-Gregaire.o : Gregaire.h Gregaire.cpp
-	g++ -Wall -std=c++11   -c Gregaire.cpp -I .
+Gregaire.o : comportements/Gregaire.h comportements/Gregaire.cpp
+	g++ -Wall -std=c++11   -c comportements/Gregaire.cpp -I .
 
-Behavior.o : Behavior.h Behavior.cpp
-	g++ -Wall -std=c++11   -c Behavior.cpp -I .
+Behavior.o : comportements/Behavior.h comportements/Behavior.cpp
+	g++ -Wall -std=c++11   -c comportements/Behavior.cpp -I .
 	
 Clonage.o : Clonage.h Clonage.cpp
 	g++ -Wall -std=c++11  -c Clonage.cpp -I .

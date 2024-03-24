@@ -47,33 +47,39 @@ void Milieu::step( void )
       for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
       {
          if( ito != it ){
-            (*ito)->collision((**it)) ;
-            if(!(*ito)->getVieStatut() && (*ito)->collision((**it))){
+            bool avoirCollision = (*ito)->collision((**it)) ;
+            if(!(*ito)->getVieStatut() && avoirCollision){
                std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
             }
          }
       }
 
-      /* Vitesse de fuite à ajouter
+      // Vitesse de fuite à ajouter
       //PEUREUSE
-      if((*it)->getIdBehavior() == 1){ //La bestiole est peureuse
-         if( nbVoisins(**it) >= 2){
-            cout<<"SAUVE QUI PEUT !" <<endl;
-            (*it)->setOrientation(M_PI +(*it)->getOrientation()); // Va dans la direction opposée
+      if((*it)->getIdBehavior() == 1)//La bestiole est peureuse
+      {     
+         int nb = nbVoisins(std::move(**it));
+         double nouvelleOrientation = 0;
+         //std::cout<< "nb voisins " << nb << std::endl;
+         if( nb >= 2){
+            nouvelleOrientation = M_PI + (*it)->getOrientation();
+            nouvelleOrientation = fmod(nouvelleOrientation, 2*M_PI);
+            (*it)->setOrientation(nouvelleOrientation); // Va dans la direction opposée
          }
       }
-      */
 
-      /*
+      
       //GREGAIRE
       if((*it)->getIdBehavior() == 2){
+         
+         double orientation = 0;
          std::vector<Bestiole*> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
          for ( std::vector<Bestiole*>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv ){
-            (*it)->setOrientation( ((*it)->getOrientation() + (*itv)->getOrientation()) ); // Somme les directions des bestioles voisines
-            (*it)->setOrientation( (*it)->getOrientation() / nbVoisins(**it)); //Moyenne les directions
+            orientation += (*itv)->getOrientation(); // Somme les directions des bestioles voisines
          }
+         (*it)->setOrientation(orientation/voisins.size()); //Moyenne les directions
       }
-      */
+      
       /*
       //KAMIKAZE
       if((*it)->getIdBehavior() == 3 && nbVoisins(**it) >= 1){
@@ -120,16 +126,15 @@ void Milieu::step( void )
    } // for
 }
 
-int Milieu::nbVoisins( const Bestiole & b )
+int Milieu::nbVoisins( const Bestiole && b )
 {
 
    int         nb = 0;
-
-
-   for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
-      b.jeTeVois(**it);
-      if ( !(b == **it) && b.jeTeVois(**it) )
-         ++nb;}
+   for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   {
+      if ( !(std::move(b) == **it) && b.jeTeVois(**it) )
+         ++nb;
+   }
 
    return nb;
 

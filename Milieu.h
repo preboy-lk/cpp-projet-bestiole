@@ -8,7 +8,6 @@
 
 #include <iostream>
 #include <vector>
-
 using namespace std;
 
 
@@ -20,7 +19,6 @@ private :
 
    int                     width, height;
    std::vector<Bestiole*>   listeBestioles;
-
 public :
    Milieu( int _width, int _height );
    ~Milieu( void );
@@ -32,7 +30,7 @@ public :
 
    void addMember( Bestiole* b );
    Bestiole* getMember();
-   int nbVoisins( const Bestiole & b );
+   int nbVoisins( const Bestiole && b );
    std::vector<Bestiole*> bestioleEnvironnante(const Bestiole & b);
 
 };

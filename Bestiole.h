@@ -4,11 +4,11 @@
 
 #include "UImg.h"
 
-#include "Behavior.h"
-#include "Gregaire.h"
-#include "Peureuse.h"
-#include "Kamikaze.h"
-#include "Prevoyante.h"
+#include "comportements/Behavior.h"
+#include "comportements/Gregaire.h"
+#include "comportements/Peureuse.h"
+#include "comportements/Kamikaze.h"
+#include "comportements/Prevoyante.h"
 
 #include "accessoires/Accessoires.h"
 #include "capteurs/Capteurs.h"
@@ -95,6 +95,8 @@ public :                                           // Forme canonique :
    int getX() {return x;}
    void setCumulX(double cuX) {cumulX = cuX;}
    int getY() {return y;}
+   void setX(double _x) { x = _x;}
+   void setY(double _y) { y = _y;}
 
    double getOrientation() {return orientation;}
    void setOrientation(double newOrientation);
