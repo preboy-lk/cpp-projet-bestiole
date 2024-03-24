@@ -2,7 +2,11 @@
 #define CAPTEURS_H
 
 #include <string>
-#include "Aquarium.h"
+#include <iostream>
+#include "cfg/Configurations.h"
+
+
+using namespace Configurations;
 
 class Capteurs {
 public:

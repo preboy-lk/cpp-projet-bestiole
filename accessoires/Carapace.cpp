@@ -1,7 +1,7 @@
 #include "Carapace.h"
 
 void Carapace::info() {
-    std::cout <<" a une Carapace" << endl;
+    std::cout <<" a une Carapace" << std::endl;
 }
 
 std::string Carapace::getNom() const {

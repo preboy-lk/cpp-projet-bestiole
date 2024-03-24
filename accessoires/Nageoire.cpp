@@ -17,11 +17,11 @@ void Nageoire::draw(int x,int y, double size,double orientation,UImg & support, 
 }
 
 void Nageoire::info() {
-    std::cout <<" a une Nageoire" << endl;
+    std::cout <<" a une Nageoire" << std::endl;
 }
 
 double Nageoire::getProtectionCapacite()
-    {return 0.f;}
+    {return 1.f;}
 double Nageoire::getCamouflageCapacite()
     {return 0.f;}
 double Nageoire::getFacteur()

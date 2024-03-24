@@ -1,8 +1,5 @@
 #include "Aquarium.h"
 
-#include "Milieu.h"
-
-#include "Clonage.h"
 
 
 Aquarium::Aquarium( int width, int height, int _delay ) : CImgDisplay(), delay( _delay )
@@ -50,12 +47,10 @@ void Aquarium::run( void )
       }
 
       //Add clone
-      /*
-      int prob = std::rand() % 100;
-      if(prob <= 2 ){
+      if(static_cast<double>( rand() )/RAND_MAX <  CLONAGE_PROBABILITE){
          flotte->addMember( cloneur->createClone(flotte->getMember()) );
       }
-      */
+      
       flotte->step();
       display( *flotte );
 

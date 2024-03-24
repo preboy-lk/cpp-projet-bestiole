@@ -51,8 +51,6 @@ void Milieu::step( void )
             int prob = std::rand() % 100;
             if(!(*ito)->getVieStatut() && (*ito)->collision((**it))){
                std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
-               //delete (*ito); // Bestiole meurt
-               //ontinue;
             }
          }
       }
@@ -106,20 +104,20 @@ void Milieu::step( void )
          }
       }
       */
-      /*
-      //Mort naturel
-      if(listeBestioles.size() > 1){   // Il y'a au moins une bestiole deans l'aquarium
-         if((*it)->getAge() >= 1){ //Tant qu'il lui reste plus d'un an à vivre, l'esperance de vie diminue
-            (*it)->esperanceVie(); //vie diminue d'1
-            if((*it)->getAge() == 0) { //Si vie à 0
-               delete (*it); // Bestiole meurt
-               listeBestioles.erase(it); //Libere case memoire vector
-               cout<<"Il reste " <<listeBestioles.size() <<" Bestioles dans l'aquarium\n\n" <<endl;
-               break;
-            }
-         }      
-      }
-      */
+      
+      // //Mort naturel
+      // if(listeBestioles.size() > 1){   // Il y'a au moins une bestiole deans l'aquarium
+      //    if((*it)->getAge() >= 1){ //Tant qu'il lui reste plus d'un an à vivre, l'esperance de vie diminue
+      //       (*it)->esperanceVie(); //vie diminue d'1
+      //       if((*it)->getAge() == 0) { //Si vie à 0
+      //          delete (*it); // Bestiole meurt
+      //          listeBestioles.erase(it); //Libere case memoire vector
+      //          cout<<"Il reste " <<listeBestioles.size() <<" Bestioles dans l'aquarium\n\n" <<endl;
+      //          break;
+      //       }
+      //    }      
+      // }
+      
    } // for
 }
 

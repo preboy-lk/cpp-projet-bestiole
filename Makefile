@@ -31,7 +31,7 @@ Creator.o : Creator.h Creator.cpp
 Milieu.o : Milieu.h Milieu.cpp
 	g++ -Wall -std=c++11  -c Milieu.cpp -I .
 
-BestioleBuilder.o: BestioleBuilder.cpp Aquarium.h Bestiole.h accessoires/Accessoires.h accessoires/Camouflage.h accessoires/Carapace.h accessoires/Nageoire.h capteurs/Capteurs.h capteurs/Oreilles.h capteurs/Yeux.h
+BestioleBuilder.o: BestioleBuilder.cpp Bestiole.h cfg/Configurations.h accessoires/Accessoires.h accessoires/Camouflage.h accessoires/Carapace.h accessoires/Nageoire.h capteurs/Capteurs.h capteurs/Oreilles.h capteurs/Yeux.h
 	g++ -Wall -std=c++17 -c BestioleBuilder.cpp -I .
 
 Camouflage.o : accessoires/Camouflage.h accessoires/Camouflage.cpp accessoires/Accessoires.h 

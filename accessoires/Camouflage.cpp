@@ -1,7 +1,7 @@
 #include "Camouflage.h"
 
 void Camouflage::info() {
-    std::cout <<" a un Camouflage" << endl;
+    std::cout <<" a un Camouflage" << std::endl;
 }
 
 std::string Camouflage::getNom() const {
@@ -14,6 +14,6 @@ void Camouflage::draw(int x,int y, double size,double orientation,UImg & support
 double Camouflage::getCamouflageCapacite()
     {return camouflageCapacite;}
 double Camouflage::getProtectionCapacite()
-    {return 0.f;}
+    {return 1.f;}
 double Camouflage::getFacteur() 
     {return 1.f;}

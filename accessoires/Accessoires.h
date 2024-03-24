@@ -2,8 +2,11 @@
 #define ACCESSOIRES_H
 
 #include <string>
-#include "Aquarium.h"
+#include "cfg/Configurations.h"
+#include <iostream>
 #include "UImg.h"
+
+using namespace Configurations;
 
 class Accessoires {
 public:

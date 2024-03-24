@@ -5,8 +5,8 @@
 
 class Carapace : public Accessoires {
 private:
-    double protectionCapacite = Aquarium::MEURT_COLLISION_PROBABILITE / ( 1 + static_cast<double>(rand()) / RAND_MAX * (Aquarium::MEURT_REDUCTION_COEFF - 1));
-    double facteur = 1/(1 + static_cast<double>(rand()) / RAND_MAX * (Aquarium::VITESSE_REDUCTION_COEFF - 1));
+    double protectionCapacite =  1 + static_cast<double>(rand()) / RAND_MAX * (MEURT_REDUCTION_COEFF - 1);
+    double facteur = 1/(1 + static_cast<double>(rand()) / RAND_MAX * (VITESSE_REDUCTION_COEFF - 1));
 public:
     void info() override;
     Carapace(void) {};

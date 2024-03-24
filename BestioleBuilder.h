@@ -2,11 +2,11 @@
 #define BESTIOLE_BUILDER_H
 
 #include <random>
-#include "Aquarium.h"
 #include "accessoires/Accessoires.h"
 #include "accessoires/Camouflage.h"
 #include "accessoires/Carapace.h"
 #include "accessoires/Nageoire.h"
+
 #include "capteurs/Capteurs.h"
 #include "capteurs/Oreilles.h"
 #include "capteurs/Yeux.h"

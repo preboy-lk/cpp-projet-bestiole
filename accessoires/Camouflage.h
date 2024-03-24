@@ -5,7 +5,7 @@
 
 class Camouflage : public Accessoires {
 private:
-    double camouflageCapacite = Aquarium::CAMOUFLAGE_CAPACITE_MIN + static_cast<double>(rand()) / RAND_MAX * (Aquarium::CAMOUFLAGE_CAPACITE_MAX - Aquarium::CAMOUFLAGE_CAPACITE_MIN);;
+    double camouflageCapacite = CAMOUFLAGE_CAPACITE_MIN + static_cast<double>(rand()) / RAND_MAX * (CAMOUFLAGE_CAPACITE_MAX - CAMOUFLAGE_CAPACITE_MIN);;
 public:
     void info() override;
     Camouflage(void){};

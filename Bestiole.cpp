@@ -61,8 +61,9 @@ Bestiole::Bestiole( const Bestiole & b )
    identite = ++next;
 
    accessoires = b.accessoires;
-
-   cout << "const Bestiole (" << identite << ") par copie" << endl;
+   capteurs = b.capteurs;
+   
+   cout << " Bestiole (" << identite << ") par copie" << endl;
 
    x = b.x;
    y = b.y;
@@ -200,6 +201,8 @@ bool Bestiole::collision( Bestiole & b )
 {
    double dist;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   double mortPossibilite = MEURT_COLLISION_PROBABILITE/this->getProtectionCapacite();
+   //std::cout << mortPossibilite << std::endl;
    if(dist < (size + b.size))
    {
       if(abs(cos(orientation)) < abs(sin(orientation)) )
@@ -207,7 +210,7 @@ bool Bestiole::collision( Bestiole & b )
          orientation = M_PI+orientation;
          b.setOrientation(M_PI+b.orientation);
       }
-      if (static_cast<double>(rand())/RAND_MAX < this->getProtectionCapacite()) {
+      if (static_cast<double>(rand())/RAND_MAX < mortPossibilite) {
          stillAlive = false;
       }
       return true;
@@ -252,9 +255,9 @@ const std::vector<Capteurs*>& Bestiole::getCapteurs() const {
 
 const double Bestiole::getProtectionCapacite()
 {
-   double protection_capacite = 0.f;
+   double protection_capacite = 1.f;
    for (const auto& accessoire : accessoires) {
-      protection_capacite += accessoire->getProtectionCapacite();
+      protection_capacite *= accessoire->getProtectionCapacite();
    }
    return protection_capacite;
 }
