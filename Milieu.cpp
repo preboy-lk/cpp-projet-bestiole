@@ -35,6 +35,7 @@ void Milieu::step( void )
 {
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(), [](Bestiole* b) { return !b->getVieStatut(); }), listeBestioles.end());
+   auto currentTime = std::chrono::steady_clock::now();
    for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       (*it)->action( *this );
@@ -48,24 +49,38 @@ void Milieu::step( void )
       {
          if( ito != it ){
             bool avoirCollision = (*ito)->collision((**it)) ;
-            if(!(*ito)->getVieStatut() && avoirCollision){
+            if(!(*ito)->getVieStatut() && avoirCollision && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - collisionTime).count() >= 500)
+            {
                std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
+               collisionTime = std::chrono::steady_clock::now();
             }
          }
       }
-
       // Vitesse de fuite à ajouter
       //PEUREUSE
-      if((*it)->getIdBehavior() == 1)//La bestiole est peureuse
+      if((*it)->getIdBehavior() == 1 )//La bestiole est peureuse
       {     
          int nb = nbVoisins(std::move(**it));
          double nouvelleOrientation = 0;
-         //std::cout<< "nb voisins " << nb << std::endl;
-         if( nb >= 2){
+         if ((*it)->getEnfui() && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 500)
+         {
+            //(*it)->setVitesse(5*((*it)->getVitesse()));
+            //speedUpTime = std::chrono::steady_clock::now();
+            (*it)->setVitesse(((*it)->getVitesse())/2);
+            (*it)->setEnfui(false);
+         }
+         if( nb >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 1000){
+            std::cout<<"SAUVE QUI PEUT!" << std::endl;
+            //originalVitesse = (*it)->getVitesse();
             nouvelleOrientation = M_PI + (*it)->getOrientation();
             nouvelleOrientation = fmod(nouvelleOrientation, 2*M_PI);
             (*it)->setOrientation(nouvelleOrientation); // Va dans la direction opposée
+            (*it)->setEnfui(true);
+            (*it)->setVitesse(2*((*it)->getVitesse()));
+            lastReactionTime = std::chrono::steady_clock::now();
          }
+
+
       }
 
       

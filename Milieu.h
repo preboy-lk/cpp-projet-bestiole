@@ -5,7 +5,9 @@
 #include "UImg.h"
 #include <random>
 #include "Bestiole.h"
-
+#include <ctime>
+#include <chrono>
+#include <thread>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -19,6 +21,11 @@ private :
 
    int                     width, height;
    std::vector<Bestiole*>   listeBestioles;
+   std::chrono::time_point<std::chrono::steady_clock> lastReactionTime;
+   std::chrono::time_point<std::chrono::steady_clock> speedUpTime;
+   std::chrono::time_point<std::chrono::steady_clock> collisionTime;
+   bool enfui = false;
+   double originalVitesse;
 public :
    Milieu( int _width, int _height );
    ~Milieu( void );

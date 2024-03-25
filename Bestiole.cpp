@@ -203,20 +203,47 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 
 bool Bestiole::collision( Bestiole & b )
 {
-   double dist;
+   double dist;// nx, ny, p, w1x, w1y, w2x, w2y;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   // double         v1x = vitesse*cos(orientation);
+   // double         v1y = -vitesse*sin(orientation);
+   // double         v2x = b.getVitesse()*cos(b.getOrientation());
+   // double         v2y = -b.getVitesse()*sin(b.getOrientation());
    double mortPossibilite = MEURT_COLLISION_PROBABILITE/this->getProtectionCapacite();
    //std::cout << mortPossibilite << std::endl;
    if(dist < (size + b.size))
    {
-      if(abs(cos(orientation)) < abs(sin(orientation)) )
-      {
-         orientation = M_PI+orientation;
-         b.setOrientation(M_PI+b.orientation);
-      }
       if (static_cast<double>(rand())/RAND_MAX < mortPossibilite) {
          stillAlive = false;
       }
+      if(abs(cos(orientation)) < abs(sin(orientation)) ){
+         orientation = M_PI+orientation;
+         b.setOrientation(M_PI+b.orientation);
+      }
+      // // Find the norm of the vector from the point of collision for the first creature and of the second creature
+      // nx = (b.x - x)/dist;
+      // ny = (b.y - y)/dist;
+      // // Calculate the p-value that takes into account the velocity of both creatures, to simplify, take m1 = m2 = 1
+      // p = nx*v1x + ny*v1y - (nx*v2x + ny*v2y);
+      // // Calculate new velocity vectors
+      // w1x = v1x - p*nx;
+      // w1y = v1y - p*ny;
+      // w2x = v2x + p*nx;
+      // w2y = v2y + p*ny;
+
+      // orientation = atan(-w1y/w1x);
+      // //vitesse = w1x/cos(orientation);
+
+      // b.setOrientation(M_PI + atan(-w2y/w2x));
+      // //b.setSpeed(w2x/cos(b.getOrientation()));
+      // // Add offset
+
+      // double offset = 2;
+      // x += offset*cos(orientation);
+      // y -= offset*sin(orientation);
+
+      // b.x += offset*cos(b.getOrientation());
+      // b.y -= offset*sin(b.getOrientation());
       return true;
    }
    return false;

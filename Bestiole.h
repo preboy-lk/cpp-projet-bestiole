@@ -47,6 +47,7 @@ private :
 
    int               ageLimite;
    bool              stillAlive = true;
+   bool              enfui = false;
 
    int               randBehavior; //id behavior
    Behavior        * behavior;
@@ -91,6 +92,9 @@ public :                                           // Forme canonique :
    const bool getVieStatut() const { return stillAlive;}
 
    bool collision( Bestiole & b );
+   
+   bool getEnfui() {return enfui;}
+   void setEnfui(bool b) {enfui = b;}
 
    int getX() {return x;}
    void setCumulX(double cuX) {cumulX = cuX;}
