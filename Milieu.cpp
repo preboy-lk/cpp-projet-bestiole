@@ -48,16 +48,16 @@ void Milieu::step( void )
       (*it)->changeBehavior((*it)->getBehavior());
       
       //Collison
-      for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
-      {
-         if( ito != it ){
-            bool avoirCollision = (*ito)->collision((**it)) ;
-            if(!(*ito)->getVieStatut() && avoirCollision )
-            {
-               std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
-            }
-         }
-      }
+      // for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
+      // {
+      //    if( ito != it ){
+      //       bool avoirCollision = (*ito)->collision((**it)) ;
+      //       if(!(*ito)->getVieStatut() && avoirCollision )
+      //       {
+      //          std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
+      //       }
+      //    }
+      // }
       // Vitesse de fuite à ajouter
       //PEUREUSE
       if((*it)->getIdBehavior() == 1 )//La bestiole est peureuse
@@ -67,7 +67,7 @@ void Milieu::step( void )
          if ((*it)->getEnfui() && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 500)
          {
             // Si la bestiole est actuellement en fuite et que suffisamment de temps s'est écoulé depuis la dernière réaction
-            // Cette section réduit de moitié la vitesse du poisson et réinitialise l'état de fuite
+            // Cette section réduit de moitié la vitesse de la bestiole et réinitialise l'état de fuite
             (*it)->setVitesse(((*it)->getVitesse())/2);
             (*it)->setEnfui(false);
          }
@@ -98,6 +98,9 @@ void Milieu::step( void )
                orientation += (*itv)->getOrientation(); // Somme les directions des bestioles voisines
             }
             (*it)->setOrientation(orientation/voisins.size()); //Moyenne les directions
+            // Mettre à jour le timestamp de la dernière mise à jour du comportement grégaire
+            // Pour éviter que les bestioles ne changent constamment de direction,
+            // prévoyez une période de repos pour eux.
             gregaireTime = std::chrono::steady_clock::now();
 
          }
@@ -105,14 +108,21 @@ void Milieu::step( void )
       
       //KAMIKAZE
       if((*it)->getIdBehavior() == 3){
+         // Identifiez la bestiole le plus proche dans le region de reconnaissance.
+         // puis ajustez la direction de cette bestiole pour qu'il pointe toujours vers celui le plus proche de lui
          if (nbVoisins(**it) >= 2){
             Bestiole* bestiolePlusProche = this->getPlusProche(**it);
             if (bestiolePlusProche != nullptr)
             {
                double orientation;
+
+               // Calculer la distance entre 2 bestioles
                double distance = std::sqrt((bestiolePlusProche->getX() - (*it)->getX())*(bestiolePlusProche->getX() - (*it)->getX())
                                           +(bestiolePlusProche->getY() - (*it)->getY())*(bestiolePlusProche->getY() - (*it)->getY()));
                
+               // Calculez l'angle créé par l'axe x et la direction dans laquelle il doit être ajusté
+               // On a toujours cos(a,b) = vecteur(a)*vecteur(b)/ norme(a)*norm(b)
+               // vecteur(b) = (1,0) (l'axe x)
                double cosinusOrientation = (bestiolePlusProche->getX() - (*it)->getX())/distance;
                orientation = std::acos(cosinusOrientation);
                (*it)->setOrientation(orientation);
@@ -121,16 +131,25 @@ void Milieu::step( void )
          }
       }
 
-      /*
+      
       //PREVOYANTE
       if((*it)->getIdBehavior() == 4){
-         std::vector<Bestiole*> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
-         for ( std::vector<Bestiole*>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv ){
-            (*it)->setOrientation( ((*it)->getOrientation() + (*itv)->getOrientation()) ); // Somme les directions des bestioles voisines
-            (*it)->setOrientation( M_PI + (*it)->getOrientation() / nbVoisins(**it)); // Va dans la direction opposée à la moyenne
+      // Étant donné la bestiole A, trouvez la bestiole le plus proche (appelé B)
+      // déterminez l'orientation de B, ajustez l'orientation de A 
+      // pour qu'elle soit perpendiculaire à l'orientation de B.
+   
+         if (nbVoisins(**it) >= 1){
+            Bestiole* bestiolePlusProche = this->getPlusProche(**it);
+            if (bestiolePlusProche != nullptr)
+            {
+               double orientation;
+               orientation = M_PI/2 - bestiolePlusProche->getOrientation();
+               (*it)->setOrientation(orientation);
+               //std::cout<< "PEACE" << std::endl;
+            }
          }
       }
-      */
+      
       
       // //Mort naturel
       // if(listeBestioles.size() > 1){   // Il y'a au moins une bestiole deans l'aquarium
