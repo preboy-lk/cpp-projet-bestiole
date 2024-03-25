@@ -201,16 +201,16 @@ bool Bestiole::collision( Bestiole & b )
       orientation = atan(-w1y/w1x);
       //vitesse = w1x/cos(orientation);
 
-      b.setOrientation(M_PI+atan(-w2y/w2x));
+      b.setOrientation(M_PI + atan(-w2y/w2x));
       //b.setSpeed(w2x/cos(b.getOrientation()));
       // Add offset
 
-      int offset = 2;
-      x += offset*vitesse*cos(orientation);
-      y -= offset*vitesse*sin(orientation);
+      double offset = 2;
+      x += offset*cos(orientation);
+      y -= offset*sin(orientation);
 
-      // b.x += b.getSpeed()*cos(b.getOrientation());
-      // b.y += -b.getSpeed()*sin(b.getOrientation())
+      b.x += offset*cos(b.getOrientation());
+      b.y -= offset*sin(b.getOrientation());
 
       return true;
    }
