@@ -12,8 +12,8 @@ namespace Configurations {
 
     // Pourcentage de bestioles possédant un comportement dynamique particulier
     static constexpr float GREGAIRE_RATIO = 0.0f;
-    static constexpr float PEUREUSE_RATIO = 1.f;
-    static constexpr float KAMIKAZE_RATIO = 0.f;
+    static constexpr float PEUREUSE_RATIO = 0.f;
+    static constexpr float KAMIKAZE_RATIO = 1.f;
     static constexpr float PREVOYANTE_RATIO = 0.f;
     static constexpr float MULTIPLE_RATIO = 0.f;
 

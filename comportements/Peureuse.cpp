@@ -22,7 +22,7 @@ Peureuse::Peureuse() {
 //     }
 //     // Sinon, vérifions si la bestiole doit fuir
 //     vitesseOriginale = b.getVitesse();
-//     int nbVoisins = m.nbVoisins(std::move(b));
+//     int nbVoisins = m.nbVoisins(b);
 
 //     // Calcul de l'orientation nécéssaire pour fuir
 //     double nouvelleOrientation = b.getOrientation();

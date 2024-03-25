@@ -96,9 +96,9 @@ public :                                           // Forme canonique :
    bool getEnfui() {return enfui;}
    void setEnfui(bool b) {enfui = b;}
 
-   int getX() {return x;}
+   int getX() const {return x;}
    void setCumulX(double cuX) {cumulX = cuX;}
-   int getY() {return y;}
+   int getY() const {return y;}
    void setX(double _x) { x = _x;}
    void setY(double _y) { y = _y;}
 

@@ -1,35 +1,35 @@
 main : main.cpp Aquarium.o Bestiole.o Peureuse.o Kamikaze.o Prevoyante.o Gregaire.o Behavior.o Clonage.o Creator.o Milieu.o BestioleBuilder.o Camouflage.o Carapace.o Nageoire.o Yeux.o Oreilles.o
-	g++ -Wall -std=c++11 -o main main.cpp *.o -I . -lX11 -lpthread
+	g++ -Wall -std=c++17 -o main main.cpp *.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
-	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
+	g++ -Wall -std=c++17  -c Aquarium.cpp -I .
 
 Bestiole.o : Bestiole.h Bestiole.cpp 
-	g++ -Wall -std=c++11  -c Bestiole.cpp -I .
+	g++ -Wall -std=c++17  -c Bestiole.cpp -I .
 	
 Peureuse.o : comportements/Peureuse.h comportements/Peureuse.cpp
-	g++ -Wall -std=c++11   -c comportements/Peureuse.cpp -I .
+	g++ -Wall -std=c++17   -c comportements/Peureuse.cpp -I .
 
 Prevoyante.o : comportements/Prevoyante.h comportements/Prevoyante.cpp
-	g++ -Wall -std=c++11   -c comportements/Prevoyante.cpp -I .
+	g++ -Wall -std=c++17   -c comportements/Prevoyante.cpp -I .
 	
 Kamikaze.o : comportements/Kamikaze.h comportements/Kamikaze.cpp
-	g++ -Wall -std=c++11   -c comportements/Kamikaze.cpp -I .
+	g++ -Wall -std=c++17   -c comportements/Kamikaze.cpp -I .
 
 Gregaire.o : comportements/Gregaire.h comportements/Gregaire.cpp
-	g++ -Wall -std=c++11   -c comportements/Gregaire.cpp -I .
+	g++ -Wall -std=c++17   -c comportements/Gregaire.cpp -I .
 
 Behavior.o : comportements/Behavior.h comportements/Behavior.cpp
-	g++ -Wall -std=c++11   -c comportements/Behavior.cpp -I .
+	g++ -Wall -std=c++17   -c comportements/Behavior.cpp -I .
 	
 Clonage.o : Clonage.h Clonage.cpp
-	g++ -Wall -std=c++11  -c Clonage.cpp -I .
+	g++ -Wall -std=c++17  -c Clonage.cpp -I .
 
 Creator.o : Creator.h Creator.cpp
-	g++ -Wall -std=c++11  -c Creator.cpp -I .
+	g++ -Wall -std=c++17  -c Creator.cpp -I .
 
 Milieu.o : Milieu.h Milieu.cpp
-	g++ -Wall -std=c++11  -c Milieu.cpp -I .
+	g++ -Wall -std=c++17  -c Milieu.cpp -I .
 
 BestioleBuilder.o: BestioleBuilder.cpp Bestiole.h cfg/Configurations.h accessoires/Accessoires.h accessoires/Camouflage.h accessoires/Carapace.h accessoires/Nageoire.h capteurs/Capteurs.h capteurs/Oreilles.h capteurs/Yeux.h
 	g++ -Wall -std=c++17 -c BestioleBuilder.cpp -I .

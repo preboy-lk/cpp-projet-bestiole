@@ -34,7 +34,10 @@ Bestiole* Milieu::getMember()
 void Milieu::step( void )
 {
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
+
+   //Mort par Collision
    listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(), [](Bestiole* b) { return !b->getVieStatut(); }), listeBestioles.end());
+   
    auto currentTime = std::chrono::steady_clock::now();
    for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
@@ -49,10 +52,9 @@ void Milieu::step( void )
       {
          if( ito != it ){
             bool avoirCollision = (*ito)->collision((**it)) ;
-            if(!(*ito)->getVieStatut() && avoirCollision && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - collisionTime).count() >= 500)
+            if(!(*ito)->getVieStatut() && avoirCollision )
             {
                std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
-               collisionTime = std::chrono::steady_clock::now();
             }
          }
       }
@@ -60,18 +62,19 @@ void Milieu::step( void )
       //PEUREUSE
       if((*it)->getIdBehavior() == 1 )//La bestiole est peureuse
       {     
-         int nb = nbVoisins(std::move(**it));
+         int nb = nbVoisins(**it);
          double nouvelleOrientation = 0;
          if ((*it)->getEnfui() && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 500)
          {
-            //(*it)->setVitesse(5*((*it)->getVitesse()));
-            //speedUpTime = std::chrono::steady_clock::now();
+            // Si la bestiole est actuellement en fuite et que suffisamment de temps s'est écoulé depuis la dernière réaction
+            // Cette section réduit de moitié la vitesse du poisson et réinitialise l'état de fuite
             (*it)->setVitesse(((*it)->getVitesse())/2);
             (*it)->setEnfui(false);
          }
          if( nb >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 1000){
+            // S'il y a 2 bestioles ou plus à proximité
+            // elle fera demi-tour, doublant sa vitesse
             std::cout<<"SAUVE QUI PEUT!" << std::endl;
-            //originalVitesse = (*it)->getVitesse();
             nouvelleOrientation = M_PI + (*it)->getOrientation();
             nouvelleOrientation = fmod(nouvelleOrientation, 2*M_PI);
             (*it)->setOrientation(nouvelleOrientation); // Va dans la direction opposée
@@ -86,34 +89,38 @@ void Milieu::step( void )
       
       //GREGAIRE
       if((*it)->getIdBehavior() == 2){
-         
          double orientation = 0;
          std::vector<Bestiole*> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
-         for ( std::vector<Bestiole*>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv ){
-            orientation += (*itv)->getOrientation(); // Somme les directions des bestioles voisines
+         if (voisins.size() >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - gregaireTime).count() >= 100)
+         {
+            for ( std::vector<Bestiole*>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv )
+            {
+               orientation += (*itv)->getOrientation(); // Somme les directions des bestioles voisines
+            }
+            (*it)->setOrientation(orientation/voisins.size()); //Moyenne les directions
+            gregaireTime = std::chrono::steady_clock::now();
+
          }
-         (*it)->setOrientation(orientation/voisins.size()); //Moyenne les directions
       }
       
-      /*
       //KAMIKAZE
-      if((*it)->getIdBehavior() == 3 && nbVoisins(**it) >= 1){
-         std::vector<Bestiole*> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
-         double         dist = std::sqrt( ((*it)->getX()-(*voisins.begin())->getX())*((*it)->getX()-(*voisins.begin())->getX()) + 
-                                          ((*it)->getY()-(*voisins.begin())->getY())*((*it)->getY()-(*voisins.begin())->getY()) );
-         
-         for ( std::vector<Bestiole*>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv ){
-           double dist1 = std::sqrt( ((*it)->getX()-(*itv)->getX())*((*it)->getX()-(*itv)->getX()) + 
-                                     ((*it)->getY()-(*itv)->getY())*((*it)->getY()-(*itv)->getY()) );
-              
-            if(dist >= dist1){
-               dist = dist1;
-               (*it)->setOrientation( M_PI/2 + (*itv)->getOrientation() ); //le bestiole sera perpandiculaire à la plus proche
-
+      if((*it)->getIdBehavior() == 3){
+         if (nbVoisins(**it) >= 2){
+            Bestiole* bestiolePlusProche = this->getPlusProche(**it);
+            if (bestiolePlusProche != nullptr)
+            {
+               double orientation;
+               double distance = std::sqrt((bestiolePlusProche->getX() - (*it)->getX())*(bestiolePlusProche->getX() - (*it)->getX())
+                                          +(bestiolePlusProche->getY() - (*it)->getY())*(bestiolePlusProche->getY() - (*it)->getY()));
+               
+               double cosinusOrientation = (bestiolePlusProche->getX() - (*it)->getX())/distance;
+               orientation = std::acos(cosinusOrientation);
+               (*it)->setOrientation(orientation);
+               //std::cout<< "KAMEHAMEHAAA" << std::endl;
             }
          }
       }
-      */
+
       /*
       //PREVOYANTE
       if((*it)->getIdBehavior() == 4){
@@ -141,13 +148,13 @@ void Milieu::step( void )
    } // for
 }
 
-int Milieu::nbVoisins( const Bestiole && b )
+int Milieu::nbVoisins( const Bestiole & b )
 {
 
    int         nb = 0;
    for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
-      if ( !(std::move(b) == **it) && b.jeTeVois(**it) )
+      if ( !(b == **it) && b.jeTeVois(**it) )
          ++nb;
    }
 
@@ -168,4 +175,28 @@ void Milieu::addMember(Bestiole* b)
 {
    std::cout<< "Bestiole " << b->getId() << "est ne naturellement" << std::endl;
    listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height);
+}
+
+Bestiole* Milieu::getPlusProche(Bestiole & b)
+{
+   std::vector<Bestiole*> voisins = bestioleEnvironnante(b);
+   double dist = 0;
+   double dist_min = b.getVisionDistance() + 1 ;// Prenez la distance la plus éloignée que la bestiole puisse percevoir
+   if (voisins.size() >=1 )
+   {
+      Bestiole* bestiolePlusProche;
+      for ( std::vector<Bestiole*>::iterator it = voisins.begin() ; it != voisins.end() ; ++it )
+         {
+            dist = std::sqrt( (b.getX()-(*it)->getX())*(b.getX()-(*it)->getX()) + 
+                              (b.getY()-(*it)->getY())*(b.getY()-(*it)->getY()) );
+         
+         if (dist < dist_min)
+         {  
+            dist_min = dist;
+            bestiolePlusProche = *it;
+         }
+         }
+   return bestiolePlusProche;
+   }
+   return nullptr;
 }
