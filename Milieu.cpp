@@ -42,9 +42,10 @@ void Milieu::step( void )
       for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
       {
          if( ito != it ){
-            (*ito)->collision((**it)) ;
+            bool collide = (*ito)->collision((**it));
+         
             int prob = std::rand() % 100;
-            if(prob <= 3 && (*ito)->collision((**it))){
+            if(prob <= 3 && collide){
                (*it)->setAge(1);
                cout<<"Mort par collision !" <<endl;
             }

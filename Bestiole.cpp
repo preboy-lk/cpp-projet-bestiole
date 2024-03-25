@@ -140,6 +140,10 @@ void Bestiole::setOrientation(double newOrientation){
       //cumulX = cumulY = 0.;
    }
 
+void Bestiole::setSpeed(double newSpeed){
+      vitesse = newSpeed;
+   }
+
 void Bestiole::draw( UImg & support )
 {
 
@@ -174,13 +178,40 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
 
 bool Bestiole::collision( Bestiole & b )
 {
-   double         dist;
+   double         dist, nx, ny, p, w1x, w1y, w2x, w2y;
+   double         v1x = vitesse*cos(orientation);
+   double         v1y = -vitesse*sin(orientation);
+   double         v2x = b.getSpeed()*cos(b.getOrientation());
+   double         v2y = -b.getSpeed()*sin(b.getOrientation());
+   // Compute orientation and speed after collision, ref: https://ericleong.me/research/circle-circle/
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   // Check if dist <= R1 + R2
    if(dist <= AFF_SIZE){
-      if(abs(cos(orientation)) < abs(sin(orientation)) ){
-         orientation = M_PI+orientation;
-         b.setOrientation(M_PI+b.orientation);
-      }
+      // Find the norm of the vector from the point of collision for the first creature and of the second creature
+      nx = (b.x - x)/dist;
+      ny = (b.y - y)/dist;
+      // Calculate the p-value that takes into account the velocity of both creatures, to simplify, take m1 = m2 = 1
+      p = nx*v1x + ny*v1y - (nx*v2x + ny*v2y);
+      // Calculate new velocity vectors
+      w1x = v1x - p*nx;
+      w1y = v1y - p*ny;
+      w2x = v2x + p*nx;
+      w2y = v2y + p*ny;
+
+      orientation = atan(-w1y/w1x);
+      //vitesse = w1x/cos(orientation);
+
+      b.setOrientation(M_PI+atan(-w2y/w2x));
+      //b.setSpeed(w2x/cos(b.getOrientation()));
+      // Add offset
+
+      int offset = 2;
+      x += offset*vitesse*cos(orientation);
+      y -= offset*vitesse*sin(orientation);
+
+      // b.x += b.getSpeed()*cos(b.getOrientation());
+      // b.y += -b.getSpeed()*sin(b.getOrientation())
+
       return true;
    }
    return false;
