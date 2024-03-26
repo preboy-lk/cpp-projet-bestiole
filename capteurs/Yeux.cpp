@@ -3,7 +3,7 @@
 std::string Yeux::getNom() const {
     return "Yeux";
 }
-void Yeux::draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const {
+void Yeux::draw(int x,int y, double size,double orientation,UImg & support, T* couleur, float opacite ) const {
     double angle = (20/180.0)*M_PI;
     double xb = x + size * cos(-orientation + angle)/2.5;
     double yb = y + size * sin(-orientation + angle)/2.5;

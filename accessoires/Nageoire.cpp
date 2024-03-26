@@ -4,7 +4,7 @@ std::string Nageoire::getNom() const {
     return "Nageoire";
 }
 
-void Nageoire::draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const{
+void Nageoire::draw(int x,int y, double size,double orientation,UImg & support, T* couleur, float opacite ) const{
     double xq = x - cos( orientation )*size;
     double yq = y + sin( orientation )*size;
     double angle = (30/180.0)*M_PI;
@@ -12,7 +12,7 @@ void Nageoire::draw(int x,int y, double size,double orientation,UImg & support, 
     double yb = yq - size * sin(-orientation + angle);
     double xc = xq - size * cos(-orientation - angle);
     double yc = yq - size * sin(-orientation - angle);
-    support.draw_triangle( xq, yq, xb, yb, xc, yc, couleur );
+    support.draw_triangle( xq, yq, xb, yb, xc, yc, couleur, opacite );
     //std::cout<< "Drawed Nageoire" <<std::endl;
 }
 

@@ -184,11 +184,11 @@ void Bestiole::draw( UImg & support )
    
    for (const auto& accessoire : accessoires) {
        //std::cout << "Drawing accesories..." << std::endl;
-       accessoire->draw(x,y,size,orientation,support,couleur);
+       accessoire->draw(x,y,size,orientation,support,couleur, opacite );
    }
    for (const auto& capteur : capteurs) {
        //std::cout << "Drawing accesories..." << std::endl;
-       capteur->draw(xt,yt,size,orientation,support,couleur);
+       capteur->draw(xt,yt,size,orientation,support,couleur, opacite );
    }
 }
 

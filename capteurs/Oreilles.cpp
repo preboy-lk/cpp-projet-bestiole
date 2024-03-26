@@ -3,7 +3,7 @@
 std::string Oreilles::getNom() const {
     return "Oreilles";
 }
-void Oreilles::draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const {
+void Oreilles::draw(int x,int y, double size,double orientation,UImg & support, T* couleur, float opacite ) const {
     double xt = x + cos( orientation )*size/2.1;
     double yt = y - sin( orientation )*size/2.1;
     double angle = (45/180.0)*M_PI;

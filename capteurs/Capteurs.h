@@ -11,7 +11,7 @@ using namespace Configurations;
 class Capteurs {
 public:
     virtual std::string getNom() const = 0;
-    virtual void draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const = 0;
+    virtual void draw(int x,int y, double size,double orientation,UImg & support, T* couleur, float opacite ) const = 0;
     virtual double getAudibleDistance() = 0;
     virtual double getOreillesDetectionCapacite() = 0;
     virtual double getVisionAngle() = 0 ;   

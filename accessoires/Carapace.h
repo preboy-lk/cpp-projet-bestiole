@@ -11,7 +11,7 @@ public:
     void info() override;
     Carapace(void) {};
     std::string getNom() const override;
-    void draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const override;
+    void draw(int x,int y, double size,double orientation,UImg & support, T* couleur, float opacite ) const override;
     double getCamouflageCapacite() override;
     double getProtectionCapacite() override;
     double getFacteur() override;
