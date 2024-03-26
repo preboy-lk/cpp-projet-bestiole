@@ -11,8 +11,8 @@ void Oreilles::draw(int x,int y, double size,double orientation,UImg & support, 
     double yb = yt - size * sin(-orientation + angle);
     double xc = xt - size * cos(-orientation - angle);
     double yc = yt - size * sin(-orientation - angle);
-    T earColor[] = {0, 0, 0};//couleur noire pour les oreilles
-    support.draw_line(xb, yb, xc, yc, earColor, 2.0f);
+    //T earColor[] = {0, 0, 0};//couleur noire pour les oreilles
+    support.draw_line(xb, yb, xc, yc, couleur, 2.0f);
     //std::cout << "Drawed Oreilles" << std::endl;
 }
 
