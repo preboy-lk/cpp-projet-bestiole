@@ -102,7 +102,7 @@ Bestiole::~Bestiole( void )
    delete[] couleur;
    delete behavior;
 
-   cout << "dest Bestiole " <<identite << endl;
+   cout << "RIP Bestiole(" <<identite <<")" <<endl;
 
 }
 
