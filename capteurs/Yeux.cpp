@@ -4,6 +4,15 @@ std::string Yeux::getNom() const {
     return "Yeux";
 }
 void Yeux::draw(int x,int y, double size,double orientation,UImg & support, T* couleur) const {
+    double angle = (20/180.0)*M_PI;
+    double xb = x + size * cos(-orientation + angle)/2.5;
+    double yb = y + size * sin(-orientation + angle)/2.5;
+    double xc = x + size * cos(-orientation - angle)/2.5;
+    double yc = y + size * sin(-orientation - angle)/2.5;
+    T eyeColor[] = {0, 0, 0};//couleur noire pour les yeux
+    support.draw_circle(xb, yb,size/6, eyeColor);
+    support.draw_circle(xc, yc,size/6, eyeColor);
+    //std::cout << "Drawed Yeux" << std::endl;
     // double xq = x;
     // double yq = y;
     // double angle = visionAngle/2;
