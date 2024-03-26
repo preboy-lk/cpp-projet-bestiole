@@ -10,7 +10,8 @@ int               Bestiole::next = 0;
 
 
 Bestiole::Bestiole(  int id_behavior, 
-                     int age, 
+                     int age,
+                     float opacity,
                      std::vector<Accessoires*>&& accessoiresPourEquiper,
                      std::vector<Capteurs*>&& capteursPourEquiper)
 {
@@ -68,6 +69,9 @@ Bestiole::Bestiole(  int id_behavior,
       multipleRandom = true;
    behavior->setMultiple(multipleRandom); //Set randomly multiple behavior or not.
    changeBehavior(behavior);
+
+   //change the color opacity according to camouflage
+   opacite = opacity;
 }
 
 
@@ -93,6 +97,8 @@ Bestiole::Bestiole( const Bestiole & b )
    behavior = b.behavior->clone();
 
    ageLimite = b.ageLimite;
+
+   opacite = b.opacite;
 }
 
 
@@ -173,8 +179,8 @@ void Bestiole::draw( UImg & support )
    double         yt = y - sin( orientation )*size/2.1;
 
 
-   support.draw_ellipse( x, y, size, size/5., -orientation/M_PI*180., couleur );
-   support.draw_circle( xt, yt, size/2., couleur );
+   support.draw_ellipse( x, y, size, size/5., -orientation/M_PI*180., couleur, opacite );
+   support.draw_circle( xt, yt, size/2., couleur, opacite );
    
    for (const auto& accessoire : accessoires) {
        //std::cout << "Drawing accesories..." << std::endl;

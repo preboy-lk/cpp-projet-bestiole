@@ -16,5 +16,12 @@ Bestiole* Creator::createBestiole()
 	std::unique_ptr<BestioleBuilder> builder(new BestioleBuilder);
 	accessoires = builder->construireAccessoires();
 	capteurs = builder->construireCapteurs();
-	return new Bestiole(behavior, age, std::move(accessoires), std::move(capteurs));
+
+	float opacite = 1.f;
+	for (const auto& accessoire : accessoires) {//check if has camouflage
+		if (accessoire->getNom() == "Camouflage"){
+			opacite = 0.3;
+	    }
+   	}
+	return new Bestiole(behavior, age, opacite, std::move(accessoires), std::move(capteurs));
 }

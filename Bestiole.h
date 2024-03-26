@@ -49,6 +49,8 @@ private :
    bool              stillAlive = true;
    bool              enfui = false;
 
+   float               opacite = 1.f;
+
    int               randBehavior; //id behavior
    Behavior        * behavior;
 
@@ -61,7 +63,8 @@ private :
 
 public :                                           // Forme canonique :
    Bestiole(   int id_behavior, 
-               int age, 
+               int age,
+               float opacity,
                std::vector<Accessoires*>&& accessoires,
                std::vector<Capteurs*>&& Capteurs); // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
