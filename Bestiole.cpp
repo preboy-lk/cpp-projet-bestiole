@@ -30,24 +30,38 @@ Bestiole::Bestiole(  int id_behavior,
    
    size = rand() % AFF_SIZE + AFF_SIZE;
 
-   couleur = new T[ 3 ];
-   couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-
    //AGE
    setAge(age);
 
+   //Couleur par comportements
+   couleur = new T[ 3 ];
+
    //CREATE BESTIOLE
    randBehavior = id_behavior; //Choose randomly a behavior for the bestiole create
-   if(randBehavior==1)
+   if(randBehavior==1){
       behavior = new Peureuse;
-   else if(randBehavior==2)
+      couleur[ 0 ] = 0. ;
+      couleur[ 1 ] = 0.   ;
+      couleur[ 2 ] = 230.   ;
+   }
+   else if(randBehavior==2){
       behavior = new Gregaire;
-   else if(randBehavior==3)
+      couleur[ 0 ] = 0. ;
+      couleur[ 1 ] = 230.   ;
+      couleur[ 2 ] = 0.   ;
+   }
+   else if(randBehavior==3){
       behavior = new Kamikaze;
-   else if(randBehavior==4)
+      couleur[ 0 ] = 230. ;
+      couleur[ 1 ] = 0.   ;
+      couleur[ 2 ] = 0.   ;
+   }
+   else if(randBehavior==4){
       behavior = new Prevoyante;
+      couleur[ 0 ] = 230. ;
+      couleur[ 1 ] = 0.   ;
+      couleur[ 2 ] = 230.   ;
+   }
    behavior->info();
    bool multipleRandom = false; 
    if (static_cast<float> (rand())/RAND_MAX < MULTIPLE_RATIO)
@@ -285,19 +299,31 @@ void Bestiole::changeBehavior(Behavior* behavior)
    {
       //cout << "Bestiole " <<identite <<" comportement multiple => " <<behavior->getMultiple() << endl;
       if(behavior->getId() != behaviorRandom && behaviorRandom == 1){ 
-         behavior = new Peureuse;
+         behavior = new Peureuse; //BLEU
+         couleur[ 0 ] = 0. ;
+         couleur[ 1 ] = 0.   ;
+         couleur[ 2 ] = 230.   ;
       //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Peureuse=> " << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 2){ 
-         behavior = new Gregaire;
+         behavior = new Gregaire; //VERT
+         couleur[ 0 ] = 0. ;
+         couleur[ 1 ] = 230.   ;
+         couleur[ 2 ] = 0.   ;
       //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Gregaire=> " << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 3){ 
-         behavior = new Kamikaze;
+         behavior = new Kamikaze; //ROUGE
+         couleur[ 0 ] = 230. ;
+         couleur[ 1 ] = 0.   ;
+         couleur[ 2 ] = 0.   ;
       //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Kamikaze=> " << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 4){ 
-         behavior = new Prevoyante;
+         behavior = new Prevoyante; //VIOLET
+         couleur[ 0 ] = 230. ;
+         couleur[ 1 ] = 0.   ;
+         couleur[ 2 ] = 230.   ;
       //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Prevoyante=> " << endl;
       }
    }

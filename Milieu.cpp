@@ -5,7 +5,7 @@
 
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
-
+int etape =0;
 
 Milieu::Milieu( int _width, int _height ) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
@@ -33,6 +33,7 @@ Bestiole* Milieu::getMember()
 
 void Milieu::step( void )
 {
+   etape += 1;
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
 
    //Mort par Collision
@@ -45,8 +46,10 @@ void Milieu::step( void )
       (*it)->draw( *this );
 
       //changeBehavior
-      (*it)->changeBehavior((*it)->getBehavior());
-      
+      if(etape == 50){
+         etape =0;
+         (*it)->changeBehavior((*it)->getBehavior());
+      }
       //Collison
       // for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
       // {
