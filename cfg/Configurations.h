@@ -11,11 +11,11 @@ namespace Configurations {
     static constexpr double CLONAGE_PROBABILITE = 0.2f;
 
     // Pourcentage de bestioles possédant un comportement dynamique particulier
-    static constexpr float GREGAIRE_RATIO = 0.0f;
-    static constexpr float PEUREUSE_RATIO = 0.f;
-    static constexpr float KAMIKAZE_RATIO = 0.f;
-    static constexpr float PREVOYANTE_RATIO = 1.f;
-    static constexpr float MULTIPLE_RATIO = 0.f;
+    static constexpr float GREGAIRE_RATIO = 0.1f;
+    static constexpr float PEUREUSE_RATIO = 0.1f;
+    static constexpr float KAMIKAZE_RATIO = 0.1f;
+    static constexpr float PREVOYANTE_RATIO = 0.1f;
+    static constexpr float MULTIPLE_RATIO = 0.6f;
 
     // probabilité de décès après une collision
     static constexpr float MEURT_COLLISION_PROBABILITE = 0.01f;
