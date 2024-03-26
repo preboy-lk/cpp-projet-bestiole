@@ -34,7 +34,9 @@ void Aquarium::run( void )
    std::unique_ptr<Clonage> cloneur; //Crée un cloneur
    std::unique_ptr<Creator> creator;
 
-   cout << "running Aquarium" << endl;
+   cout <<  "******************************************************\n"
+        <<  "*******************running Aquarium*******************\n"
+        <<  "******************************************************\n" << endl;
    int frameCount = 0;
    while ( ! is_closed() )
    {

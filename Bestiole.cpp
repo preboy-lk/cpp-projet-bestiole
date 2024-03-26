@@ -16,7 +16,7 @@ Bestiole::Bestiole(  int id_behavior,
 {
    identite = ++next;
    vitesse = static_cast<double>( rand() )/RAND_MAX *MAX_VITESSE;
-   cout << "const Bestiole (" << identite << ") par defaut " << endl;
+   cout << "Bestiole (" << identite << ") nait par defaut " << endl;
    accessoires = std::move(accessoiresPourEquiper);
    capteurs = std::move(capteursPourEquiper);
    for ( std::vector<Accessoires*>::iterator it = accessoires.begin() ; it != accessoires.end() ; ++it )
@@ -62,7 +62,7 @@ Bestiole::Bestiole(  int id_behavior,
       couleur[ 1 ] = 0.   ;
       couleur[ 2 ] = 230.   ;
    }
-   behavior->info();
+   behavior->info(); cout<<"\n" <<endl;
    bool multipleRandom = false; 
    if (static_cast<float> (rand())/RAND_MAX < MULTIPLE_RATIO)
       multipleRandom = true;
@@ -78,7 +78,7 @@ Bestiole::Bestiole( const Bestiole & b )
    accessoires = b.accessoires;
    capteurs = b.capteurs;
    
-   cout << " Bestiole (" << identite << ") par copie" << endl;
+   cout << " Bestiole (" << identite << ") nait par clonage de Bestiole(" <<b.identite <<")\n" << endl;
 
    x = b.x;
    y = b.y;
@@ -225,14 +225,18 @@ bool Bestiole::collision( Bestiole & b )
    // double         v2y = -b.getVitesse()*sin(b.getOrientation());
    double mortPossibilite = MEURT_COLLISION_PROBABILITE/this->getProtectionCapacite();
    //std::cout << mortPossibilite << std::endl;
-   if(dist < (size + b.size))
-   {
+   if(dist < (size + b.size) && dist > 1.5*size)
+   { 
       if (static_cast<double>(rand())/RAND_MAX < mortPossibilite) {
          stillAlive = false;
       }
       if(abs(cos(orientation)) < abs(sin(orientation)) ){
          orientation = M_PI+orientation;
          b.setOrientation(M_PI+b.orientation);
+      }
+      else{
+         orientation = -orientation;
+         b.setOrientation(-b.orientation);
       }
       // // Find the norm of the vector from the point of collision for the first creature and of the second creature
       // nx = (b.x - x)/dist;
@@ -297,34 +301,34 @@ void Bestiole::changeBehavior(Behavior* behavior)
    int behaviorRandom = this->selectionComportement();
    if(behavior->getMultiple() == true)
    {
-      //cout << "Bestiole " <<identite <<" comportement multiple => " <<behavior->getMultiple() << endl;
+      cout << "Bestiole (" <<identite <<") est" ; behavior->info();
       if(behavior->getId() != behaviorRandom && behaviorRandom == 1){ 
          behavior = new Peureuse; //BLEU
          couleur[ 0 ] = 0. ;
          couleur[ 1 ] = 0.   ;
          couleur[ 2 ] = 230.   ;
-      //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Peureuse=> " << endl;
+         cout <<" Bestiole ("<<identite <<") maintenant Peureuse\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 2){ 
          behavior = new Gregaire; //VERT
          couleur[ 0 ] = 0. ;
          couleur[ 1 ] = 230.   ;
          couleur[ 2 ] = 0.   ;
-      //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Gregaire=> " << endl;
+         cout <<" Bestiole ("<<identite <<") maintenant Gregaire\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 3){ 
          behavior = new Kamikaze; //ROUGE
          couleur[ 0 ] = 230. ;
          couleur[ 1 ] = 0.   ;
          couleur[ 2 ] = 0.   ;
-      //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Kamikaze=> " << endl;
+         cout <<" Bestiole ("<<identite <<") maintenant Kamikaze\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 4){ 
          behavior = new Prevoyante; //VIOLET
          couleur[ 0 ] = 230. ;
          couleur[ 1 ] = 0.   ;
          couleur[ 2 ] = 230.   ;
-      //   cout <<"nbr = " <<behaviorRandom << " Bestiole "<<identite <<" maintenant Prevoyante=> " << endl;
+         cout <<" Bestiole ("<<identite <<") maintenant Prevoyante\n" << endl;
       }
    }
 }
@@ -411,9 +415,3 @@ const double Bestiole::getVitesseChangementFacteur()
    }
    return facteur;
 }
-
-// void Bestiole::action( Milieu & monMilieu )
-// {
-//    behavior -> action(monMilieu, *this);
-//    bouge( monMilieu.getWidth(), monMilieu.getHeight() );
-// }

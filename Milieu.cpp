@@ -51,17 +51,18 @@ void Milieu::step( void )
          (*it)->changeBehavior((*it)->getBehavior());
       }
       //Collison
-      // for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
-      // {
-      //    if( ito != it ){
-      //       bool avoirCollision = (*ito)->collision((**it)) ;
-      //       if(!(*ito)->getVieStatut() && avoirCollision )
-      //       {
-      //          std::cout <<"Une Bestiole " << (*ito)->getId() << " est mort" << std::endl;
-      //       }
-      //    }
-      // }
-      // Vitesse de fuite à ajouter
+      for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
+      {
+         if( ito != it ){
+            bool avoirCollision = (*ito)->collision((**it)) ;
+            if(!(*ito)->getVieStatut() && avoirCollision )
+            {
+               cout<<"Collision entre la bestiole(" <<(*it)->getId() <<") et la bestiole(" <<(*ito)->getId() <<")" <<endl;
+               cout <<"Bestiole (" << (*ito)->getId() << ") est morte de la collision\n" << std::endl;
+            }
+         }
+      }
+
       //PEUREUSE
       if((*it)->getIdBehavior() == 1 )//La bestiole est peureuse
       {     
@@ -77,7 +78,7 @@ void Milieu::step( void )
          if( nb >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 1000){
             // S'il y a 2 bestioles ou plus à proximité
             // elle fera demi-tour, doublant sa vitesse
-            std::cout<<"SAUVE QUI PEUT!" << std::endl;
+            std::cout<<"Bestiole (" <<(*it)->getId() <<") a PEUR et FUIT !\n" << std::endl;
             nouvelleOrientation = M_PI + (*it)->getOrientation();
             nouvelleOrientation = fmod(nouvelleOrientation, 2*M_PI);
             (*it)->setOrientation(nouvelleOrientation); // Va dans la direction opposée
@@ -195,7 +196,6 @@ std::vector<Bestiole*> Milieu::bestioleEnvironnante(const Bestiole & b)
 
 void Milieu::addMember(Bestiole* b)
 {
-   std::cout<< "Bestiole " << b->getId() << "est ne naturellement" << std::endl;
    listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height);
 }
 
