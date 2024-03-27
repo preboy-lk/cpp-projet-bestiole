@@ -25,7 +25,7 @@ Milieu::~Milieu( void )
 
 }
 
-Bestiole* Milieu::getMember()
+BestiolePtr Milieu::getMember()
 {
    int nMember = std::rand() % listeBestioles.size();
    return listeBestioles.at(nMember);
@@ -37,10 +37,10 @@ void Milieu::step( void )
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
 
    //Mort par Collision
-   listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(), [](Bestiole* b) { return !b->getVieStatut(); }), listeBestioles.end());
+   listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(), [](BestiolePtr b) { return !b->getVieStatut(); }), listeBestioles.end());
    
    auto currentTime = std::chrono::steady_clock::now();
-   for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   for ( std::vector<BestiolePtr>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       (*it)->action( *this );
       (*it)->draw( *this );
@@ -51,7 +51,7 @@ void Milieu::step( void )
          (*it)->changeBehavior((*it)->getBehavior());
       }
       //Collison
-      for ( std::vector<Bestiole*>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
+      for ( std::vector<BestiolePtr>::iterator ito = listeBestioles.begin() ; ito != listeBestioles.end() ; ++ito )
       {
          if( ito != it ){
             bool avoirCollision = (*ito)->collision((**it)) ;
@@ -94,10 +94,10 @@ void Milieu::step( void )
       //GREGAIRE
       if((*it)->getIdBehavior() == 2){
          double orientation = 0;
-         std::vector<Bestiole*> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
+         std::vector<BestiolePtr> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
          if (voisins.size() >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - gregaireTime).count() >= 100)
          {
-            for ( std::vector<Bestiole*>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv )
+            for ( std::vector<BestiolePtr>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv )
             {
                orientation += (*itv)->getOrientation(); // Somme les directions des bestioles voisines
             }
@@ -115,7 +115,7 @@ void Milieu::step( void )
          // Identifiez la bestiole le plus proche dans le region de reconnaissance.
          // puis ajustez la direction de cette bestiole pour qu'il pointe toujours vers celui le plus proche de lui
          if (nbVoisins(**it) >= 2){
-            Bestiole* bestiolePlusProche = this->getPlusProche(**it);
+            BestiolePtr bestiolePlusProche = this->getPlusProche(**it);
             if (bestiolePlusProche != nullptr)
             {
                double orientation;
@@ -143,7 +143,7 @@ void Milieu::step( void )
       // pour qu'elle soit perpendiculaire à l'orientation de B.
    
          if (nbVoisins(**it) >= 1){
-            Bestiole* bestiolePlusProche = this->getPlusProche(**it);
+            BestiolePtr bestiolePlusProche = this->getPlusProche(**it);
             if (bestiolePlusProche != nullptr)
             {
                double orientation;
@@ -175,7 +175,7 @@ int Milieu::nbVoisins( const Bestiole & b )
 {
 
    int         nb = 0;
-   for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   for ( std::vector<BestiolePtr>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       if ( !(b == **it) && b.jeTeVois(**it) )
          ++nb;
@@ -185,29 +185,29 @@ int Milieu::nbVoisins( const Bestiole & b )
 
 }
 
-std::vector<Bestiole*> Milieu::bestioleEnvironnante(const Bestiole & b)
+std::vector<BestiolePtr> Milieu::bestioleEnvironnante(const Bestiole & b)
 {
-   std::vector<Bestiole*>   voisins;
-   for ( std::vector<Bestiole*>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   std::vector<BestiolePtr>   voisins;
+   for ( std::vector<BestiolePtr>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
       if ( !(b == **it) && b.jeTeVois(**it) )
          voisins.push_back(*it);
    return voisins;
 }
 
-void Milieu::addMember(Bestiole* b)
+void Milieu::addMember(BestiolePtr b)
 {
    listeBestioles.push_back(b); listeBestioles.back()->initCoords(width, height);
 }
 
-Bestiole* Milieu::getPlusProche(Bestiole & b)
+BestiolePtr Milieu::getPlusProche(Bestiole & b)
 {
-   std::vector<Bestiole*> voisins = bestioleEnvironnante(b);
+   std::vector<BestiolePtr> voisins = bestioleEnvironnante(b);
    double dist = 0;
    double dist_min = b.getVisionDistance() + 1 ;// Prenez la distance la plus éloignée que la bestiole puisse percevoir
    if (voisins.size() >=1 )
    {
-      Bestiole* bestiolePlusProche;
-      for ( std::vector<Bestiole*>::iterator it = voisins.begin() ; it != voisins.end() ; ++it )
+      BestiolePtr bestiolePlusProche;
+      for ( std::vector<BestiolePtr>::iterator it = voisins.begin() ; it != voisins.end() ; ++it )
          {
             dist = std::sqrt( (b.getX()-(*it)->getX())*(b.getX()-(*it)->getX()) + 
                               (b.getY()-(*it)->getY())*(b.getY()-(*it)->getY()) );

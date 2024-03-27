@@ -6,7 +6,7 @@
 #include "cfg/Configurations.h"
 #include "UImg.h"
 
-using namespace Configurations;
+;
 
 class Capteurs {
 public:

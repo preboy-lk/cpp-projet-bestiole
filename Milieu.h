@@ -14,6 +14,7 @@
 
 using namespace std;
 
+using BestiolePtr = std::shared_ptr<Bestiole>;
 
 class Milieu : public UImg
 {
@@ -22,7 +23,7 @@ private :
    static const T          white[];
 
    int                     width, height;
-   std::vector<Bestiole*>   listeBestioles;
+   std::vector<BestiolePtr>   listeBestioles;
    std::chrono::time_point<std::chrono::steady_clock> lastReactionTime;
    std::chrono::time_point<std::chrono::steady_clock> speedUpTime;
    std::chrono::time_point<std::chrono::steady_clock> collisionTime;
@@ -38,11 +39,11 @@ public :
 
    void step( void );
 
-   void addMember( Bestiole* b );
-   Bestiole* getMember();
+   void addMember( BestiolePtr b );
+   BestiolePtr getMember();
    int nbVoisins( const Bestiole & b );
-   std::vector<Bestiole*> bestioleEnvironnante(const Bestiole & b);
-   Bestiole* getPlusProche(Bestiole & b);
+   std::vector<BestiolePtr> bestioleEnvironnante(const Bestiole & b);
+   BestiolePtr getPlusProche(Bestiole & b);
 };
 
 

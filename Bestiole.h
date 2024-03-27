@@ -25,12 +25,15 @@
 using namespace std;
 
 
+using AccessoiresPtr = std::shared_ptr<Accessoires>;
+using CapteursPtr = std::shared_ptr<Capteurs>;
+
 class Milieu;
 
 
 class Bestiole
 {
-
+using BestiolePtr = std::shared_ptr<Bestiole>;
 private :
    static const int        AFF_SIZE;
    static const double     MAX_VITESSE;
@@ -58,8 +61,8 @@ private :
 
    std::chrono::time_point<std::chrono::steady_clock>  lastTimeCollision = std::chrono::steady_clock::now();
 
-   std::vector<Accessoires*> accessoires;
-   std::vector<Capteurs*> capteurs;
+   std::vector<AccessoiresPtr> accessoires;
+   std::vector<CapteursPtr> capteurs;
    T               * couleur;
 
 private :
@@ -69,8 +72,8 @@ public :                                           // Forme canonique :
    Bestiole(   int id_behavior, 
                int age,
                float opacity,
-               std::vector<Accessoires*>&& accessoires,
-               std::vector<Capteurs*>&& Capteurs); // Constructeur par defaut
+               std::vector<AccessoiresPtr> accessoires,
+               std::vector<CapteursPtr> Capteurs); // Constructeur par defaut
    Bestiole( const Bestiole & b );                 // Constructeur de copies
    ~Bestiole( void );                              // Destructeur
                                                    // Operateur d'affectation binaire par defaut
@@ -112,8 +115,7 @@ public :                                           // Forme canonique :
    double getOrientation() {return orientation;}
    void setOrientation(double newOrientation);
 
-   const std::vector<Accessoires*>& getAccessoires() const;
-   const std::vector<Capteurs*>& getCapteurs() const;
+   T* setColor(int id);
 
    const double getProtectionCapacite() ;
    const double getCamouflageCapacite() ;

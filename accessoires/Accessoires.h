@@ -6,7 +6,7 @@
 #include <iostream>
 #include "UImg.h"
 
-using namespace Configurations;
+;
 
 class Accessoires {
 public:

@@ -5,7 +5,7 @@
 
 class Camouflage : public Accessoires {
 private:
-    double camouflageCapacite = CAMOUFLAGE_CAPACITE_MIN + static_cast<double>(rand()) / RAND_MAX * (CAMOUFLAGE_CAPACITE_MAX - CAMOUFLAGE_CAPACITE_MIN);;
+    double camouflageCapacite = Configurations::CAMOUFLAGE_CAPACITE_MIN + static_cast<double>(rand()) / RAND_MAX * (Configurations::CAMOUFLAGE_CAPACITE_MAX - Configurations::CAMOUFLAGE_CAPACITE_MIN);;
 public:
     void info() override;
     Camouflage(void){};

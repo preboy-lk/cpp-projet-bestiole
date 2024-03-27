@@ -5,7 +5,7 @@
 
 class Nageoire : public Accessoires {
 private:
-    double facteur = 1 + static_cast<double>(rand()) / RAND_MAX * (ACCELERATION_COEFF - 1);
+    double facteur = 1 + static_cast<double>(rand()) / RAND_MAX * (Configurations::ACCELERATION_COEFF - 1);
 
 public:
     void info() override;

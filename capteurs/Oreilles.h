@@ -6,8 +6,8 @@
 
 class Oreilles : public Capteurs {
 private:
-    double audibleDistance = AUDIBLE_DISTANCE_MIN + static_cast<double>(rand()) / RAND_MAX * (AUDIBLE_DISTANCE_MAX - AUDIBLE_DISTANCE_MIN);
-    double oreillesDetectionCapacite = AUDIBLE_DETECTION_PROBABILITE_MIN + static_cast<double>(rand()) / RAND_MAX * (AUDIBLE_DETECTION_PROBABILITE_MAX - AUDIBLE_DETECTION_PROBABILITE_MIN);;
+    double audibleDistance = Configurations::AUDIBLE_DISTANCE_MIN + static_cast<double>(rand()) / RAND_MAX * (Configurations::AUDIBLE_DISTANCE_MAX - Configurations::AUDIBLE_DISTANCE_MIN);
+    double oreillesDetectionCapacite = Configurations::AUDIBLE_DETECTION_PROBABILITE_MIN + static_cast<double>(rand()) / RAND_MAX * (Configurations::AUDIBLE_DETECTION_PROBABILITE_MAX - Configurations::AUDIBLE_DETECTION_PROBABILITE_MIN);;
 public:
     Oreilles(void){};
     std::string getNom() const override;

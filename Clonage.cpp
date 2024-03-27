@@ -1,8 +1,8 @@
 #include "Clonage.h"
 
-Bestiole* Clonage::createClone(Bestiole* b){
+BestiolePtr Clonage::createClone(BestiolePtr b){
 		cout<< "Bestiole (" << b->getId() <<") : SHADOW CLONE JUTSU !" <<endl;
-		Bestiole* clone = new Bestiole((*b)); //Clonage
+		BestiolePtr clone = std::make_shared<Bestiole>(*b); //Clonage
 
 		int age = rand() % 1001 + 300;
 		clone->setAge(age); //age different

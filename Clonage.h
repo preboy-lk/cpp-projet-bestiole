@@ -6,11 +6,11 @@
 #define _CLONAGE_H_
 
 #include "Bestiole.h"
-
+using BestiolePtr = std::shared_ptr<Bestiole>;
 class Clonage {
 
 public:
-	Bestiole* createClone(Bestiole* b);
+	BestiolePtr createClone(BestiolePtr b);
 };
 
 #endif

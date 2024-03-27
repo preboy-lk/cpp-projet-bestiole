@@ -1,6 +1,6 @@
 #include "Creator.h"
 
-Bestiole* Creator::createBestiole()
+BestiolePtr Creator::createBestiole()
 {
 	// Les 2 lignes de code ci-dessous garantissent que 
 	// les comportements sont correctement divisés selon
@@ -11,8 +11,8 @@ Bestiole* Creator::createBestiole()
 	int age = rand() % 1001 + 300;
 
 	//Builder pour fixer des accessoires et des capteurs a la bestiole
-	std::vector<Accessoires*> accessoires;
-	std::vector<Capteurs*> capteurs;
+	std::vector<std::shared_ptr<Accessoires>> accessoires;
+	std::vector<std::shared_ptr<Capteurs>> capteurs;
 	std::unique_ptr<BestioleBuilder> builder(new BestioleBuilder);
 	accessoires = builder->construireAccessoires();
 	capteurs = builder->construireCapteurs();
@@ -23,5 +23,6 @@ Bestiole* Creator::createBestiole()
 			opacite = 0.3;
 	    }
    	}
-	return new Bestiole(behavior, age, opacite, std::move(accessoires), std::move(capteurs));
+
+	return std::make_shared<Bestiole>(behavior, age, opacite, accessoires, capteurs);
 }

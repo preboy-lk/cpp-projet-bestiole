@@ -12,15 +12,15 @@ int               Bestiole::next = 0;
 Bestiole::Bestiole(  int id_behavior, 
                      int age,
                      float opacity,
-                     std::vector<Accessoires*>&& accessoiresPourEquiper,
-                     std::vector<Capteurs*>&& capteursPourEquiper)
+                     std::vector<AccessoiresPtr> accessoiresPourEquiper,
+                     std::vector<CapteursPtr> capteursPourEquiper)
 {
    identite = ++next;
    vitesse = static_cast<double>( rand() )/RAND_MAX *MAX_VITESSE;
    cout << "Bestiole (" << identite << ") nait par defaut " << endl;
    accessoires = std::move(accessoiresPourEquiper);
    capteurs = std::move(capteursPourEquiper);
-   for ( std::vector<Accessoires*>::iterator it = accessoires.begin() ; it != accessoires.end() ; ++it )
+   for ( std::vector<AccessoiresPtr>::iterator it = accessoires.begin() ; it != accessoires.end() ; ++it )
    {
       (*it)->info();
    }
@@ -40,32 +40,24 @@ Bestiole::Bestiole(  int id_behavior,
    //CREATE BESTIOLE
    randBehavior = id_behavior; //Choose randomly a behavior for the bestiole create
    if(randBehavior==1){
-      behavior = new Peureuse;
-      couleur[ 0 ] = 0. ;
-      couleur[ 1 ] = 0.   ;
-      couleur[ 2 ] = 230.   ;
+      behavior = new Peureuse; //BLEU
+      couleur = setColor(randBehavior);
    }
    else if(randBehavior==2){
       behavior = new Gregaire;
-      couleur[ 0 ] = 0. ;
-      couleur[ 1 ] = 230.   ;
-      couleur[ 2 ] = 0.   ;
+      couleur = setColor(randBehavior);
    }
    else if(randBehavior==3){
       behavior = new Kamikaze;
-      couleur[ 0 ] = 230. ;
-      couleur[ 1 ] = 0.   ;
-      couleur[ 2 ] = 0.   ;
+      couleur = setColor(randBehavior);
    }
    else if(randBehavior==4){
       behavior = new Prevoyante;
-      couleur[ 0 ] = 230. ;
-      couleur[ 1 ] = 0.   ;
-      couleur[ 2 ] = 230.   ;
+      couleur = setColor(randBehavior);
    }
    behavior->info(); cout<<"\n" <<endl;
    bool multipleRandom = false; 
-   if (static_cast<float> (rand())/RAND_MAX < MULTIPLE_RATIO)
+   if (static_cast<float> (rand())/RAND_MAX < Configurations::MULTIPLE_RATIO)
       multipleRandom = true;
    behavior->setMultiple(multipleRandom); //Set randomly multiple behavior or not.
    changeBehavior(behavior);
@@ -229,7 +221,7 @@ bool Bestiole::collision( Bestiole & b)
    double         v1y = -vitesse*sin(orientation);
    double         v2x = b.getVitesse()*cos(b.getOrientation());
    double         v2y = -b.getVitesse()*sin(b.getOrientation());
-   double mortPossibilite = MEURT_COLLISION_PROBABILITE/this->getProtectionCapacite();
+   double mortPossibilite = Configurations::MEURT_COLLISION_PROBABILITE/this->getProtectionCapacite();
    auto currentTime = std::chrono::steady_clock::now();
    double timeThresh = 250; //ms
    //std::cout << mortPossibilite << std::endl;
@@ -274,11 +266,11 @@ int Bestiole::selectionComportement()
    Renvoie un entier représentant le type de comportement sélectionné
    */
 	std::vector<int> values = {1, 2, 3, 4};
-	float pourcentageTotalSansPersonalitesMultiples = 1. - MULTIPLE_RATIO;
-   float tauxPeureuse = PEUREUSE_RATIO/pourcentageTotalSansPersonalitesMultiples;
-	float tauxGregaire = GREGAIRE_RATIO/pourcentageTotalSansPersonalitesMultiples;
-	float tauxKamikaze = KAMIKAZE_RATIO/pourcentageTotalSansPersonalitesMultiples;
-	float tauxPrevoyante = PREVOYANTE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float pourcentageTotalSansPersonalitesMultiples = 1. - Configurations::MULTIPLE_RATIO;
+   float tauxPeureuse = Configurations::PEUREUSE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float tauxGregaire = Configurations::GREGAIRE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float tauxKamikaze = Configurations::KAMIKAZE_RATIO/pourcentageTotalSansPersonalitesMultiples;
+	float tauxPrevoyante = Configurations::PREVOYANTE_RATIO/pourcentageTotalSansPersonalitesMultiples;
 	
 	std::vector<float> probabilities = {tauxPeureuse, tauxGregaire, tauxKamikaze, tauxPrevoyante};
 
@@ -305,43 +297,56 @@ void Bestiole::changeBehavior(Behavior* behavior)
       cout << "Bestiole (" <<identite <<") est" ; behavior->info();
       if(behavior->getId() != behaviorRandom && behaviorRandom == 1){ 
          behavior = new Peureuse; //BLEU
-         couleur[ 0 ] = 0. ;
-         couleur[ 1 ] = 0.   ;
-         couleur[ 2 ] = 230.   ;
+         couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Peureuse\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 2){ 
          behavior = new Gregaire; //VERT
-         couleur[ 0 ] = 0. ;
-         couleur[ 1 ] = 230.   ;
-         couleur[ 2 ] = 0.   ;
+         couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Gregaire\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 3){ 
          behavior = new Kamikaze; //ROUGE
-         couleur[ 0 ] = 230. ;
-         couleur[ 1 ] = 0.   ;
-         couleur[ 2 ] = 0.   ;
+         couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Kamikaze\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 4){ 
          behavior = new Prevoyante; //VIOLET
-         couleur[ 0 ] = 230. ;
-         couleur[ 1 ] = 0.   ;
-         couleur[ 2 ] = 230.   ;
+         couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Prevoyante\n" << endl;
       }
    }
 }
 
+T* Bestiole::setColor(int id)
+{
+   T* color = new T[3];
+   if (id ==1 )
+   {
+      color[ 0 ] = 0. ;
+      color[ 1 ] = 0.   ;
+      color[ 2 ] = 230.   ;
+   }
+   else if (id == 2)
+   {
+      color[ 0 ] = 0. ;
+      color[ 1 ] = 0.   ;
+      color[ 2 ] = 230.   ;
+   }
+   else if (id == 3 )
+   {
+      color[ 0 ] = 0. ;
+      color[ 1 ] = 0.   ;
+      color[ 2 ] = 230.   ;
+   }
 
-//ACCESSOIRES
-const std::vector<Accessoires*>& Bestiole::getAccessoires() const {
-    return accessoires;
-}
-
-const std::vector<Capteurs*>& Bestiole::getCapteurs() const {
-    return capteurs;
+   else if (id == 4 )
+   {
+      color[ 0 ] = 0. ;
+      color[ 1 ] = 0.   ;
+      color[ 2 ] = 230.   ;
+   }
+   return color;
 }
 
 const double Bestiole::getProtectionCapacite()

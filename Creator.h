@@ -9,10 +9,12 @@
 #include "Bestiole.h"
 #include "BestioleBuilder.h"
 
+using BestiolePtr = std::shared_ptr<Bestiole>;
+
 class Creator {
 
 public:
-	Bestiole* createBestiole();
+	BestiolePtr createBestiole();
 };
 
 #endif
