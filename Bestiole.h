@@ -19,6 +19,8 @@
 #include <memory>
 #include <cstdlib>
 #include <cmath>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 
@@ -53,6 +55,8 @@ private :
 
    int               randBehavior; //id behavior
    Behavior        * behavior;
+
+   std::chrono::time_point<std::chrono::steady_clock>  lastTimeCollision = std::chrono::steady_clock::now();
 
    std::vector<Accessoires*> accessoires;
    std::vector<Capteurs*> capteurs;

@@ -221,57 +221,52 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
       return false;
 }
 
-bool Bestiole::collision( Bestiole & b )
+bool Bestiole::collision( Bestiole & b)
 {
-   double dist;// nx, ny, p, w1x, w1y, w2x, w2y;
+   double dist, nx, ny, p, w1x, w1y, w2x, w2y;
    dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   // double         v1x = vitesse*cos(orientation);
-   // double         v1y = -vitesse*sin(orientation);
-   // double         v2x = b.getVitesse()*cos(b.getOrientation());
-   // double         v2y = -b.getVitesse()*sin(b.getOrientation());
+   double         v1x = vitesse*cos(orientation);
+   double         v1y = -vitesse*sin(orientation);
+   double         v2x = b.getVitesse()*cos(b.getOrientation());
+   double         v2y = -b.getVitesse()*sin(b.getOrientation());
    double mortPossibilite = MEURT_COLLISION_PROBABILITE/this->getProtectionCapacite();
+   auto currentTime = std::chrono::steady_clock::now();
+   double timeThresh = 250; //ms
    //std::cout << mortPossibilite << std::endl;
-   if(dist < (size + b.size) && dist > 1.5*size)
+   if(dist < (size + b.size))
    { 
-      if (static_cast<double>(rand())/RAND_MAX < mortPossibilite) {
-         stillAlive = false;
+      if(std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTimeCollision).count() > timeThresh)
+      {
+         if (static_cast<double>(rand())/RAND_MAX < mortPossibilite) {
+            stillAlive = false;
+         }
+         // Find the norm of the vector from the point of collision for the first creature and of the second creature
+         nx = (b.x - x)/dist;
+         ny = (b.y - y)/dist;
+         // Calculate the p-value that takes into account the velocity of both creatures, to simplify, take m1 = m2 = 1
+         p = nx*v1x + ny*v1y - (nx*v2x + ny*v2y);
+         // Calculate new velocity vectors
+         w1x = v1x - p*nx;
+         w1y = v1y - p*ny;
+         w2x = v2x + p*nx;
+         w2y = v2y + p*ny;
+
+         orientation = atan(-w1y/w1x);
+         //vitesse = w1x/cos(orientation);
+
+         b.setOrientation(M_PI + atan(-w2y/w2x));
+         //b.setSpeed(w2x/cos(b.getOrientation()));
+
+         //Update last time collision
+         lastTimeCollision = std::chrono::steady_clock::now();
+
+         return true;
       }
-      if(abs(cos(orientation)) < abs(sin(orientation)) ){
-         orientation = M_PI+orientation;
-         b.setOrientation(M_PI+b.orientation);
-      }
-      else{
-         orientation = -orientation;
-         b.setOrientation(-b.orientation);
-      }
-      // // Find the norm of the vector from the point of collision for the first creature and of the second creature
-      // nx = (b.x - x)/dist;
-      // ny = (b.y - y)/dist;
-      // // Calculate the p-value that takes into account the velocity of both creatures, to simplify, take m1 = m2 = 1
-      // p = nx*v1x + ny*v1y - (nx*v2x + ny*v2y);
-      // // Calculate new velocity vectors
-      // w1x = v1x - p*nx;
-      // w1y = v1y - p*ny;
-      // w2x = v2x + p*nx;
-      // w2y = v2y + p*ny;
-
-      // orientation = atan(-w1y/w1x);
-      // //vitesse = w1x/cos(orientation);
-
-      // b.setOrientation(M_PI + atan(-w2y/w2x));
-      // //b.setSpeed(w2x/cos(b.getOrientation()));
-      // // Add offset
-
-      // double offset = 2;
-      // x += offset*cos(orientation);
-      // y -= offset*sin(orientation);
-
-      // b.x += offset*cos(b.getOrientation());
-      // b.y -= offset*sin(b.getOrientation());
-      return true;
    }
    return false;
 }
+
+
 int Bestiole::selectionComportement()
 {
    /*
