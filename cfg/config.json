@@ -5,9 +5,9 @@
     "comportement_ratio" :
     {
         "gregaire_ratio": 1.0,
-        "peureuse_ratio": 0.0,
-        "kamikaze_ratio": 0.0,
-        "prevoyante_ratio": 0.0,
+        "peureuse_ratio": 0.2,
+        "kamikaze_ratio": 0.4,
+        "prevoyante_ratio": 0.3,
         "multiple_ratio": 0.0
     },
 

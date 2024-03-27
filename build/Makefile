@@ -1,7 +1,10 @@
+all: main test_comportements
 test_comportements : ../test/test_comportements.cpp Aquarium.o Bestiole.o Peureuse.o Kamikaze.o Prevoyante.o Gregaire.o Behavior.o Clonage.o Creator.o Milieu.o BestioleBuilder.o Camouflage.o Carapace.o Nageoire.o Yeux.o Oreilles.o Configurations.o ConfigReader.o
 	g++ -Wall -std=c++17 -o test_comportements ../test/test_comportements.cpp *.o -I.. -lX11 -lpthread
+
 main : ../main.cpp Aquarium.o Bestiole.o Peureuse.o Kamikaze.o Prevoyante.o Gregaire.o Behavior.o Clonage.o Creator.o Milieu.o BestioleBuilder.o Camouflage.o Carapace.o Nageoire.o Yeux.o Oreilles.o Configurations.o ConfigReader.o
 	g++ -Wall -std=c++17 -o main ../main.cpp *.o -I.. -lX11 -lpthread
+
 Configurations.o : ../cfg/Configurations.h ../cfg/Configurations.cpp
 	g++ -Wall -std=c++17  -c ../cfg/Configurations.cpp -I..
 
@@ -57,4 +60,4 @@ Oreilles.o : ../capteurs/Oreilles.h ../capteurs/Oreilles.cpp ../capteurs/Capteur
 	g++ -Wall -std=c++17 -c ../capteurs/Oreilles.cpp -I..
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o main test_comportements
