@@ -68,14 +68,14 @@ void Milieu::step( void )
       {     
          int nb = nbVoisins(**it);
          double nouvelleOrientation = 0;
-         if ((*it)->getEnfui() && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 500)
+         if ((*it)->getEnfui() && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - (*it)->getLastTimeBehaviour()).count() >= 500)
          {
             // Si la bestiole est actuellement en fuite et que suffisamment de temps s'est écoulé depuis la dernière réaction
             // Cette section réduit de moitié la vitesse de la bestiole et réinitialise l'état de fuite
             (*it)->setVitesse(((*it)->getVitesse())/2);
             (*it)->setEnfui(false);
          }
-         if( nb >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastReactionTime).count() >= 1000){
+         if( nb >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - (*it)->getLastTimeBehaviour()).count() >= 1000){
             // S'il y a 2 bestioles ou plus à proximité
             // elle fera demi-tour, doublant sa vitesse
             std::cout<<"Bestiole (" <<(*it)->getId() <<") a PEUR et FUIT !\n" << std::endl;
@@ -84,7 +84,7 @@ void Milieu::step( void )
             (*it)->setOrientation(nouvelleOrientation); // Va dans la direction opposée
             (*it)->setEnfui(true);
             (*it)->setVitesse(2*((*it)->getVitesse()));
-            lastReactionTime = std::chrono::steady_clock::now();
+            (*it)->updateLastTimeBehaviour();
          }
 
 
@@ -95,7 +95,7 @@ void Milieu::step( void )
       if((*it)->getIdBehavior() == 2){
          double orientation = 0;
          std::vector<BestiolePtr> voisins = bestioleEnvironnante(**it); //Vecteur contenant les voisins de la bestiole it
-         if (voisins.size() >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - gregaireTime).count() >= 100)
+         if (voisins.size() >= 2 && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - (*it)->getLastTimeBehaviour()).count() >= 100)
          {
             for ( std::vector<BestiolePtr>::iterator itv = voisins.begin() ; itv != voisins.end() ; ++itv )
             {
@@ -105,7 +105,7 @@ void Milieu::step( void )
             // Mettre à jour le timestamp de la dernière mise à jour du comportement grégaire
             // Pour éviter que les bestioles ne changent constamment de direction,
             // prévoyez une période de repos pour eux.
-            gregaireTime = std::chrono::steady_clock::now();
+            (*it)->updateLastTimeBehaviour();
 
          }
       }
