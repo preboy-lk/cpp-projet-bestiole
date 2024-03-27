@@ -9,7 +9,7 @@ std::string Carapace::getNom() const {
 }
 
 void Carapace::draw(int x,int y, double size,double orientation,UImg & support, T* couleur, float opacite ) const {
-    support.draw_circle( x, y,size*2, couleur, 1.5f, ~0U);
+    support.draw_ellipse( x, y, size*2, size, -orientation/M_PI*180., couleur, 1.5f, ~0U);
     //std::cout << "Drawed Carapace" << std::endl;
 }
 
