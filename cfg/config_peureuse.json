@@ -1,0 +1,55 @@
+{   
+    "taux_naissance": 0.2,
+    "clonage_probabilite": 0.2,
+    "meurt_collision_probabilite": 0.01,
+    "comportement_ratio" :
+    {
+        "gregaire_ratio": 0.0,
+        "peureuse_ratio": 1.0,
+        "kamikaze_ratio": 0.0,
+        "prevoyante_ratio": 0.0,
+        "multiple_ratio": 0.0
+    },
+
+    "capteurs":
+    {
+        "yeux":
+        {
+            "yeux_probabilite": 0.7,
+            "vision_angle": [0.0, 60.0],
+            "vision_distance": [120.0, 140.0],
+            "vision_detection_probabilite": [0.8, 0.9]
+        },
+
+        "oreilles":
+        {
+            "oreilles_probabilite": 0.6,
+            "audible_distance": [60.0, 70.0],
+            "audible_detection_probabilite": [0.8, 0.9]
+        }
+    },
+
+    "accessoires":
+    {
+        "camouflage":
+        {
+            "camouflage_probabilite": 0.5,
+            "camouflage_capacite": [0.0, 1.0]
+        },
+
+        "carapace":
+        {
+            "carapace_probabilite": 0.8,
+            "vitesse_reduction_coeff": 1.2,
+            "meurt_reduction_coeff": 1.1
+        },
+
+        "nageoire":
+        {
+            "nageoire_probabilite": 0.2,
+            "acceleration_coeff": 2.0
+        }
+    }
+    
+}
+  
