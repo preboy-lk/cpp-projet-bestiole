@@ -344,9 +344,9 @@ T* Bestiole::setColor(int id)
    T* color = new T[3];
    if (id ==1 )
    {
-      color[ 0 ] = 0. ;
+      color[ 0 ] = 230. ;
       color[ 1 ] = 0.   ;
-      color[ 2 ] = 230.   ;
+      color[ 2 ] = 0.   ;
    }
    else if (id == 2)
    {
@@ -357,13 +357,13 @@ T* Bestiole::setColor(int id)
    else if (id == 3 )
    {
       color[ 0 ] = 0. ;
-      color[ 1 ] = 0.   ;
-      color[ 2 ] = 230.   ;
+      color[ 1 ] = 230.   ;
+      color[ 2 ] = 0.   ;
    }
 
    else if (id == 4 )
    {
-      color[ 0 ] = 0. ;
+      color[ 0 ] = 230. ;
       color[ 1 ] = 0.   ;
       color[ 2 ] = 230.   ;
    }
