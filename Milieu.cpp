@@ -147,12 +147,13 @@ void Milieu::step( void )
             if (bestiolePlusProche != nullptr && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - (*it)->getLastTimeBehaviour()).count() >= 100)
             {
                double orientation;
-               double epsilon = 0.2;
+               double epsilon = 0.3;
                if((*it)->ontheway(*bestiolePlusProche, epsilon))
                {
                   orientation = (static_cast<double>(std::rand())/RAND_MAX)*(M_PI-2*epsilon)+epsilon;
                   (*it)->setOrientation(orientation);
                   (*it)->updateLastTimeBehaviour();
+                  //std::cout << orientation << std::endl;
                }
                
                //std::cout<< "PEACE" << std::endl;
