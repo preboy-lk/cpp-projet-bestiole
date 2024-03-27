@@ -60,6 +60,7 @@ private :
    Behavior        * behavior;
 
    std::chrono::time_point<std::chrono::steady_clock>  lastTimeCollision = std::chrono::steady_clock::now();
+   std::chrono::time_point<std::chrono::steady_clock>  lastTimeBehaviour = std::chrono::steady_clock::now();
 
    std::vector<AccessoiresPtr> accessoires;
    std::vector<CapteursPtr> capteurs;
@@ -126,6 +127,9 @@ public :                                           // Forme canonique :
    const double getAudibleDistance() const;
    const double getVitesseChangementFacteur();
    double getSize(){return size;}
+   auto getLastTimeBehaviour(){return lastTimeBehaviour;};
+   void updateLastTimeBehaviour();
+   bool ontheway( Bestiole & b , double epsilon);
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
    

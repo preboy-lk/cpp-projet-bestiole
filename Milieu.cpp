@@ -144,11 +144,17 @@ void Milieu::step( void )
    
          if (nbVoisins(**it) >= 1){
             BestiolePtr bestiolePlusProche = this->getPlusProche(**it);
-            if (bestiolePlusProche != nullptr)
+            if (bestiolePlusProche != nullptr && std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - (*it)->getLastTimeBehaviour()).count() >= 100)
             {
                double orientation;
-               orientation = M_PI/2 - bestiolePlusProche->getOrientation();
-               (*it)->setOrientation(orientation);
+               double epsilon = 0.2;
+               if((*it)->ontheway(*bestiolePlusProche, epsilon))
+               {
+                  orientation = (static_cast<double>(std::rand())/RAND_MAX)*(M_PI-2*epsilon)+epsilon;
+                  (*it)->setOrientation(orientation);
+                  (*it)->updateLastTimeBehaviour();
+               }
+               
                //std::cout<< "PEACE" << std::endl;
             }
          }

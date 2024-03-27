@@ -213,6 +213,27 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
       return false;
 }
 
+void Bestiole::updateLastTimeBehaviour(){
+   lastTimeBehaviour = std::chrono::steady_clock::now();
+}
+
+bool Bestiole::ontheway(Bestiole & b, double epsilon)
+{
+   double         dist;
+   double         angle;
+   bool           ontheway;
+   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   angle = std::asin((b.y-y)/dist);
+
+   ontheway =  (dist < this->getVisionDistance()) 
+                  && angle > (orientation - this->getVisionAngle()/2) 
+                  && angle < (orientation + this->getVisionAngle()/2);
+   if (ontheway)
+      return true;
+   else
+      return false;
+}
+
 bool Bestiole::collision( Bestiole & b)
 {
    double dist, nx, ny, p, w1x, w1y, w2x, w2y;
