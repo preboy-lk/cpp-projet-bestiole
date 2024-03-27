@@ -364,8 +364,8 @@ T* Bestiole::setColor(int id)
    else if (id == 4 )
    {
       color[ 0 ] = 230. ;
-      color[ 1 ] = 0.   ;
-      color[ 2 ] = 230.   ;
+      color[ 1 ] = 230.   ;
+      color[ 2 ] = 0.   ;
    }
    return color;
 }
