@@ -64,9 +64,11 @@ Voici l'explication de chaque paramètre de la configuration :
         "prevoyante_ratio": 1.0, Pourcentage associé au comportement prevoyante </br>
         "multiple_ratio": 0.0 Pourcentage associé au comportement personalites multiples </br>
     }, </br>
+    
     ```bash
          NOTE: Il faut que la somme de ces 5 ratio soit égale à 1, et qu'aucun d'eux ne soit négatif
     ```
+    
     "capteurs": </br>
         "yeux": </br>
         { </br>
@@ -74,15 +76,13 @@ Voici l'explication de chaque paramètre de la configuration :
             "vision_angle": [0.0, 60.0], Champ de vision en degré </br>
             "vision_distance": [120.0, 140.0], Distance maximale de vision en pixels </br>
             "vision_detection_probabilite": [0.8, 0.9] Efficacité des yeux : Probabilité lorsqu'une bestiole est dans le champ de vision d'être réllement détectée </br>
-        }, </br>
-       
+        },
         "oreilles": </br>
-        {</br>
             "oreilles_probabilite": 0.6, Possibilité d'être équipé d'oreilles</br>
             "audible_distance": [60.0, 70.0],  Distance maximale d'écoute en pixel</br>
             "audible_detection_probabilite": [0.8, 0.9] Efficacité des yeux : Probabilité lorsqu'une bestiole est dans le champ d'écoute d'être réllement détectée</br>
         }</br>
-    },
+    }, </br>
 
     "accessoires":</br>
     {</br>
