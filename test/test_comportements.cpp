@@ -2,6 +2,7 @@
 #include "Milieu.h"
 #include "Creator.h"
 #include "cfg/ConfigReader.h"
+#include "cfg/Configurations.h"
 #include <iostream>
 
 void displayHelp() {
@@ -63,6 +64,7 @@ int main(int argc, char* argv[])
     }
     ConfigReader config(fileName);
     config.setGlobalConfig();
+    std::cout << Configurations::MULTIPLE_RATIO << std::endl;
     Aquarium       ecosysteme( 640, 480, 30);
     std::unique_ptr<Creator> creator;
 
