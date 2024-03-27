@@ -226,8 +226,8 @@ bool Bestiole::ontheway(Bestiole & b, double epsilon)
    angle = std::asin((b.y-y)/dist);
 
    ontheway =  (dist < this->getVisionDistance()) 
-                  && angle > (orientation - this->getVisionAngle()/2) 
-                  && angle < (orientation + this->getVisionAngle()/2);
+                  && angle > (orientation - epsilon) 
+                  && angle < (orientation + epsilon);
    if (ontheway)
       return true;
    else
@@ -317,22 +317,22 @@ void Bestiole::changeBehavior(Behavior* behavior)
    {
       cout << "Bestiole (" <<identite <<") est" ; behavior->info();
       if(behavior->getId() != behaviorRandom && behaviorRandom == 1){ 
-         behavior = new Peureuse; //Vert
+         behavior = new Peureuse; //BLEU
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Peureuse\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 2){ 
-         behavior = new Gregaire; //BLEU
+         behavior = new Gregaire; //VERT
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Gregaire\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 3){ 
-         behavior = new Kamikaze; //RED
+         behavior = new Kamikaze; //ROUGE
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Kamikaze\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 4){ 
-         behavior = new Prevoyante; //JAUNE
+         behavior = new Prevoyante; //VIOLET
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Prevoyante\n" << endl;
       }
@@ -344,8 +344,8 @@ T* Bestiole::setColor(int id)
    T* color = new T[3];
    if (id ==1 )
    {
-      color[ 0 ] = 0. ;
-      color[ 1 ] = 230.   ;
+      color[ 0 ] = 230. ;
+      color[ 1 ] = 0.   ;
       color[ 2 ] = 0.   ;
    }
    else if (id == 2)
@@ -356,16 +356,16 @@ T* Bestiole::setColor(int id)
    }
    else if (id == 3 )
    {
-      color[ 0 ] = 230. ;
-      color[ 1 ] = 0.   ;
+      color[ 0 ] = 0. ;
+      color[ 1 ] = 230.   ;
       color[ 2 ] = 0.   ;
    }
 
    else if (id == 4 )
    {
       color[ 0 ] = 230. ;
-      color[ 1 ] = 230.   ;
-      color[ 2 ] = 0.   ;
+      color[ 1 ] = 0.   ;
+      color[ 2 ] = 230.   ;
    }
    return color;
 }
