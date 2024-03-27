@@ -317,22 +317,22 @@ void Bestiole::changeBehavior(Behavior* behavior)
    {
       cout << "Bestiole (" <<identite <<") est" ; behavior->info();
       if(behavior->getId() != behaviorRandom && behaviorRandom == 1){ 
-         behavior = new Peureuse; //BLEU
+         behavior = new Peureuse; //Vert
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Peureuse\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 2){ 
-         behavior = new Gregaire; //VERT
+         behavior = new Gregaire; //BLEU
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Gregaire\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 3){ 
-         behavior = new Kamikaze; //ROUGE
+         behavior = new Kamikaze; //RED
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Kamikaze\n" << endl;
       }
       else if(behavior->getId() != behaviorRandom && behaviorRandom == 4){ 
-         behavior = new Prevoyante; //VIOLET
+         behavior = new Prevoyante; //JAUNE
          couleur = setColor(behaviorRandom);
          cout <<" Bestiole ("<<identite <<") maintenant Prevoyante\n" << endl;
       }
@@ -344,8 +344,8 @@ T* Bestiole::setColor(int id)
    T* color = new T[3];
    if (id ==1 )
    {
-      color[ 0 ] = 230. ;
-      color[ 1 ] = 0.   ;
+      color[ 0 ] = 0. ;
+      color[ 1 ] = 230.   ;
       color[ 2 ] = 0.   ;
    }
    else if (id == 2)
@@ -356,8 +356,8 @@ T* Bestiole::setColor(int id)
    }
    else if (id == 3 )
    {
-      color[ 0 ] = 0. ;
-      color[ 1 ] = 230.   ;
+      color[ 0 ] = 230. ;
+      color[ 1 ] = 0.   ;
       color[ 2 ] = 0.   ;
    }
 
