@@ -14,6 +14,8 @@ void Oreilles::draw(int x,int y, double size,double orientation,UImg & support, 
     //T earColor[] = {0, 0, 0};//couleur noire pour les oreilles
     support.draw_line(xb, yb, xc, yc, couleur, 2.0f);
     //std::cout << "Drawed Oreilles" << std::endl;
+    float opacity = 0.3f;
+    support.draw_circle( x, y, audibleDistance, couleur, opacity );
 }
 
 double Oreilles::getAudibleDistance()
