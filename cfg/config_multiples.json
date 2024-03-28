@@ -8,7 +8,7 @@
         "peureuse_ratio": 0.001,
         "kamikaze_ratio": 0.001,
         "prevoyante_ratio": 0.001,
-        "multiple_ratio": 1.0
+        "multiple_ratio": 0.997
     },
 
     "capteurs":
