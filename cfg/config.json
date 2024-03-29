@@ -4,11 +4,11 @@
     "meurt_collision_probabilite": 0.01,
     "comportement_ratio" :
     {
-        "gregaire_ratio": 0.0,
-        "peureuse_ratio": 0.0,
-        "kamikaze_ratio": 0.0,
-        "prevoyante_ratio": 1.0,
-        "multiple_ratio": 0.0
+        "gregaire_ratio": 0.2,
+        "peureuse_ratio": 0.2,
+        "kamikaze_ratio": 0.2,
+        "prevoyante_ratio": 0.2,
+        "multiple_ratio": 0.2
     },
 
     "capteurs":
