@@ -5,7 +5,7 @@ DUONG Hoang
 JAO Jean-David 
 ZAOULY Heliote-Ismael 
 ----------------------------------------------------------------------
-Présentation :
+## Présentation :
 Ce programme propose la simulation simple d'un environnement aquatique dans lequel évoluent différents êtres vivants.
 Différentes entités évoluent avec les caractéristiques suivantes :
  - Comportements particuliers, au nombre de 5
@@ -13,13 +13,16 @@ Différentes entités évoluent avec les caractéristiques suivantes :
  - Des accessoires pour se défendre et se protéger
  - Des vitesses différentes
 
------------------------------------------------------------------------
-Fonctionnement du programme :
+## Sommaire
+- [Fonctionnement du programme](#Fonctionnement du programme)
+- [Compilation et exécution](#Compilation et exécution)
+- [Exécution des tests](#Exécution des tests)
+  
+## Fonctionnement du programme
 Le programme se présente sous la forme d'une fenêtre ou évoluent les êtres vivants.
 L'évolution peut être observée au cours du temps dans cette fenêtre.
 
------------------------------------------------------------------------
-Compilation et exécution :
+## Compilation et exécution
 Pour compiler le programme, navigateur vers le répertoire "build" avec la commande 
 ```bash
 cd build
@@ -37,8 +40,8 @@ Pour effectuer une opération de nettoyage des fichiers de compilation, exécute
 ```bash
 make clean
 ```
------------------------------------------------------------------------
-Exécution des tests :
+
+## Exécution des tests :
 Il est possible d'éxecuter des tests pour chaque comportement.
 Il suffit d'exécuter la commande :
 ```bash
