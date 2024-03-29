@@ -1,9 +1,9 @@
 BE BESTIOLES
 ----------------------------------------------------------------------
-NGUYEN Le Kim 
-DUONG Hoang 
-JAO Jean-David 
-ZAOULY Heliote-Ismael 
+NGUYEN Le Kim </br>
+DUONG Hoang  </br>
+JAO Jean-David </br>
+ZAOULY Heliote-Ismael </br> 
 ----------------------------------------------------------------------
 ## Présentation :
 Ce programme propose la simulation simple d'un environnement aquatique dans lequel évoluent différents êtres vivants.
