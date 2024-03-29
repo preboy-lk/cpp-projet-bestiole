@@ -14,9 +14,9 @@ Différentes entités évoluent avec les caractéristiques suivantes :
  - Des vitesses différentes
 
 ## Sommaire
-- [Fonctionnement du programme](#Fonctionnement du programme)
-- [Compilation et exécution](#Compilation et exécution)
-- [Exécution des tests](#Exécution des tests)
+- [Fonctionnement du programme](#fonctionnement)
+- [Compilation et exécution](#compilation)
+- [Exécution des tests](#exécutions)
   
 ## Fonctionnement du programme
 Le programme se présente sous la forme d'une fenêtre ou évoluent les êtres vivants.
