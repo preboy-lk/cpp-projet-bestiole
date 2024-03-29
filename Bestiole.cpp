@@ -170,17 +170,17 @@ void Bestiole::draw( UImg & support )
    double         xt = x + cos( orientation )*size/2.1;
    double         yt = y - sin( orientation )*size/2.1;
 
-
+   for (const auto& capteur : capteurs) {
+       //std::cout << "Drawing accesories..." << std::endl;
+       capteur->draw(xt,yt,size,orientation,support,couleur, opacite );
+   }
+   
    support.draw_ellipse( x, y, size, size/5., -orientation/M_PI*180., couleur, opacite );
    support.draw_circle( xt, yt, size/2., couleur, opacite );
    
    for (const auto& accessoire : accessoires) {
        //std::cout << "Drawing accesories..." << std::endl;
        accessoire->draw(x,y,size,orientation,support,couleur, opacite );
-   }
-   for (const auto& capteur : capteurs) {
-       //std::cout << "Drawing accesories..." << std::endl;
-       capteur->draw(xt,yt,size,orientation,support,couleur, opacite );
    }
 }
 
